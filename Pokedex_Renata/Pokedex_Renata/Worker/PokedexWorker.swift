@@ -8,42 +8,21 @@
 
 import Foundation
 
-enum HTTPMethod {
-    case get
-    case post
-    
-    var value: String {
-        switch self {
-        case .get:
-            return "GET"
-        case .post:
-            return "POST"
-        }
-    }
-}
-
-protocol APIClient {
-    var session: URLSession { get set }
-    func makeRequest(withURL url: URL, method: HTTPMethod) -> URLRequest
-}
-
-protocol PokedexAPIClient: APIClient {
-    func fetchPokedex(
-        url: URL,
-        completion: @escaping (PokedexWorkerResult) -> Void
-    )
-}
-
 enum PokedexWorkerError: Error {
     case unavailable
 }
 
 enum PokedexWorkerResult {
     case success(Pokedex?)
-    case failure(error: PokedexWorkerError)
+    case failure(PokedexWorkerError)
 }
 
-class PokedexWorker: PokedexAPIClient {
+protocol PokedexAPIClient {
+    func fetchPokedex(url: URL, completion: @escaping (PokedexWorkerResult) -> Void)
+}
+
+//  MARK: - Networking
+class PokedexWorker: Networking {
     var session: URLSession
     
     init(session: URLSession = URLSession.shared) {
@@ -55,15 +34,15 @@ class PokedexWorker: PokedexAPIClient {
         request.httpMethod = method.value
         return request
     }
+}
 
-    func fetchPokedex(
-        url: URL,
-        completion: @escaping (PokedexWorkerResult) -> Void
-    ) {
+//  MARK: - PokedexAPIClient
+extension PokedexWorker: PokedexAPIClient {
+    func fetchPokedex(url: URL, completion: @escaping (PokedexWorkerResult) -> Void) {
         session.dataTask(with: makeRequest(withURL: url, method: .get)) { (data, response, error) in
             guard let data = data, error == nil else {
                 if let _ = error {
-                    completion(.failure(error: .unavailable))
+                    completion(.failure(.unavailable))
                 }
                 return
             }

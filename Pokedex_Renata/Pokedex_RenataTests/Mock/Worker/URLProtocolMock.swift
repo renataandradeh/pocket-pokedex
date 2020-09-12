@@ -1,5 +1,5 @@
 //
-//  URLSessionMock.swift
+//  URLProtocolMock.swift
 //  Pokedex_RenataTests
 //
 //  Created by Renata Andrade on 11/09/20.
@@ -33,4 +33,10 @@ class URLProtocolMock: URLProtocol {
     }
 
     override func stopLoading() {}
+}
+
+extension URLProtocolMock {
+    static func set(url: URL, data: Data? = nil, error: Error? = nil) {
+        URLProtocolMock.urls = [url: (error, data)]
+    }
 }

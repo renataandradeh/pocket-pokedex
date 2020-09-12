@@ -1,0 +1,78 @@
+//
+//  PokedexWorker.swift
+//  Pokedex_Renata
+//
+//  Created by Renata Andrade on 11/09/20.
+//  Copyright © 2020 Renata Gondim Andrade. All rights reserved.
+//
+
+import Foundation
+
+enum HTTPMethod {
+    case get
+    case post
+    
+    var value: String {
+        switch self {
+        case .get:
+            return "GET"
+        case .post:
+            return "POST"
+        }
+    }
+}
+
+protocol APIClient {
+    var session: URLSession { get set }
+    func makeRequest(withURL url: URL, method: HTTPMethod) -> URLRequest
+}
+
+protocol PokedexAPIClient: APIClient {
+    func fetchPokedex(
+        url: URL,
+        completion: @escaping (PokedexWorkerResult) -> Void
+    )
+}
+
+enum PokedexWorkerError: Error {
+    case unavailable
+}
+
+enum PokedexWorkerResult {
+    case success(Pokedex?)
+    case failure(error: PokedexWorkerError)
+}
+
+class PokedexWorker: PokedexAPIClient {
+    var session: URLSession
+    
+    init(session: URLSession = URLSession.shared) {
+        self.session = session
+    }
+    
+    func makeRequest(withURL url: URL, method: HTTPMethod) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = method.value
+        return request
+    }
+
+    func fetchPokedex(
+        url: URL,
+        completion: @escaping (PokedexWorkerResult) -> Void
+    ) {
+        session.dataTask(with: makeRequest(withURL: url, method: .get)) { (data, response, error) in
+            guard let data = data, error == nil else {
+                if let _ = error {
+                    completion(.failure(error: .unavailable))
+                }
+                return
+            }
+            
+            let response = try? JSONDecoder().decode(Pokedex.self, from: data)
+            DispatchQueue.main.async {
+                completion(.success(response))
+            }
+            
+        }.resume()
+    }
+}

@@ -12,7 +12,11 @@
 		12825A02250C059400EC915D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12825A00250C059400EC915D /* Main.storyboard */; };
 		12825A04250C059800EC915D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12825A03250C059800EC915D /* Assets.xcassets */; };
 		12825A07250C059800EC915D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12825A05250C059800EC915D /* LaunchScreen.storyboard */; };
-		12825A12250C059800EC915D /* Pokedex_RenataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12825A11250C059800EC915D /* Pokedex_RenataTests.swift */; };
+		12825A1D250C151700EC915D /* PokedexWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12825A1C250C151700EC915D /* PokedexWorker.swift */; };
+		12825A21250C165E00EC915D /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12825A20250C165E00EC915D /* Pokemon.swift */; };
+		12AFE76C250C28AE00BAEAB0 /* Pokedex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE76B250C28AE00BAEAB0 /* Pokedex.swift */; };
+		12AFE770250C3D8900BAEAB0 /* PokedexWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE76F250C3D8900BAEAB0 /* PokedexWorkerTests.swift */; };
+		12AFE772250C535E00BAEAB0 /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE771250C535E00BAEAB0 /* URLProtocolMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +38,12 @@
 		12825A06250C059800EC915D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12825A08250C059800EC915D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12825A0D250C059800EC915D /* Pokedex_RenataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pokedex_RenataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		12825A11250C059800EC915D /* Pokedex_RenataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokedex_RenataTests.swift; sourceTree = "<group>"; };
 		12825A13250C059800EC915D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12825A1C250C151700EC915D /* PokedexWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexWorker.swift; sourceTree = "<group>"; };
+		12825A20250C165E00EC915D /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		12AFE76B250C28AE00BAEAB0 /* Pokedex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokedex.swift; sourceTree = "<group>"; };
+		12AFE76F250C3D8900BAEAB0 /* PokedexWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexWorkerTests.swift; sourceTree = "<group>"; };
+		12AFE771250C535E00BAEAB0 /* URLProtocolMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,8 @@
 				12825A03250C059800EC915D /* Assets.xcassets */,
 				12825A05250C059800EC915D /* LaunchScreen.storyboard */,
 				12825A08250C059800EC915D /* Info.plist */,
+				12825A1C250C151700EC915D /* PokedexWorker.swift */,
+				12825A22250C168F00EC915D /* Models */,
 			);
 			path = Pokedex_Renata;
 			sourceTree = "<group>";
@@ -90,10 +100,20 @@
 		12825A10250C059800EC915D /* Pokedex_RenataTests */ = {
 			isa = PBXGroup;
 			children = (
-				12825A11250C059800EC915D /* Pokedex_RenataTests.swift */,
 				12825A13250C059800EC915D /* Info.plist */,
+				12AFE76F250C3D8900BAEAB0 /* PokedexWorkerTests.swift */,
+				12AFE771250C535E00BAEAB0 /* URLProtocolMock.swift */,
 			);
 			path = Pokedex_RenataTests;
+			sourceTree = "<group>";
+		};
+		12825A22250C168F00EC915D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12825A20250C165E00EC915D /* Pokemon.swift */,
+				12AFE76B250C28AE00BAEAB0 /* Pokedex.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +218,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				128259FF250C059400EC915D /* ViewController.swift in Sources */,
+				12825A21250C165E00EC915D /* Pokemon.swift in Sources */,
+				12AFE76C250C28AE00BAEAB0 /* Pokedex.swift in Sources */,
 				128259FB250C059400EC915D /* AppDelegate.swift in Sources */,
+				12825A1D250C151700EC915D /* PokedexWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12825A12250C059800EC915D /* Pokedex_RenataTests.swift in Sources */,
+				12AFE772250C535E00BAEAB0 /* URLProtocolMock.swift in Sources */,
+				12AFE770250C3D8900BAEAB0 /* PokedexWorkerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +314,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -344,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -359,6 +383,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B8R742385D;
 				INFOPLIST_FILE = Pokedex_Renata/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -377,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B8R742385D;
 				INFOPLIST_FILE = Pokedex_Renata/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (

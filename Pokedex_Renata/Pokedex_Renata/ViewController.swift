@@ -9,12 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = .white
+        
+        let worker = PokedexWorker(session: URLSession.shared)
+        worker.fetchPokedex(url:
+            URL(string: "https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10")!, completion: { result in
+                print(result)
+        })
     }
-
-
 }
-

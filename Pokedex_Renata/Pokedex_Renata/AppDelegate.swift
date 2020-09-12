@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)
-        let controller = ViewController()
+        let controller = PokedexTaBarController()
         
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.isNavigationBarHidden = true

@@ -22,6 +22,7 @@
 		12BF7AB9250D00720017BABC /* WorkerTestsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7AB8250D00720017BABC /* WorkerTestsFactory.swift */; };
 		12BF7ABD250D6EBF0017BABC /* PokedexTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7ABC250D6EBF0017BABC /* PokedexTabBarController.swift */; };
 		12BF7ABF250D715A0017BABC /* PokedexTabBarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7ABE250D715A0017BABC /* PokedexTabBarFactory.swift */; };
+		12BF7AC4250D73930017BABC /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7AC3250D73930017BABC /* ViewCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		12BF7AB8250D00720017BABC /* WorkerTestsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerTestsFactory.swift; sourceTree = "<group>"; };
 		12BF7ABC250D6EBF0017BABC /* PokedexTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexTabBarController.swift; sourceTree = "<group>"; };
 		12BF7ABE250D715A0017BABC /* PokedexTabBarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexTabBarFactory.swift; sourceTree = "<group>"; };
+		12BF7AC3250D73930017BABC /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		128259F9250C059400EC915D /* Pokedex_Renata */ = {
 			isa = PBXGroup;
 			children = (
+				12BF7AC2250D737C0017BABC /* DesignSystem */,
 				128259FA250C059400EC915D /* AppDelegate.swift */,
 				128259FE250C059400EC915D /* ViewController.swift */,
 				12825A00250C059400EC915D /* Main.storyboard */,
@@ -185,6 +188,22 @@
 				12BF7ABE250D715A0017BABC /* PokedexTabBarFactory.swift */,
 			);
 			path = PokedexTabBar;
+			sourceTree = "<group>";
+		};
+		12BF7AC2250D737C0017BABC /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				12BF7AC5250D73990017BABC /* Protocol */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		12BF7AC5250D73990017BABC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				12BF7AC3250D73930017BABC /* ViewCode.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				128259FF250C059400EC915D /* ViewController.swift in Sources */,
+				12BF7AC4250D73930017BABC /* ViewCode.swift in Sources */,
 				12825A21250C165E00EC915D /* Pokemon.swift in Sources */,
 				12BF7ABF250D715A0017BABC /* PokedexTabBarFactory.swift in Sources */,
 				12BF7AB5250CFD6A0017BABC /* HTTPMethod.swift in Sources */,

@@ -9,6 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    override func loadView() {
+        view = PokedexView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

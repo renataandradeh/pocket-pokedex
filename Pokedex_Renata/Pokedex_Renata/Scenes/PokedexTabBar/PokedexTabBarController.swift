@@ -9,7 +9,6 @@
 import UIKit
 
 class PokedexTaBarController: UITabBarController {
-
     override func viewDidLoad() {
         setViewControllers(PokedexTabBarFactory.makeTabControllers(), animated: true)
     }

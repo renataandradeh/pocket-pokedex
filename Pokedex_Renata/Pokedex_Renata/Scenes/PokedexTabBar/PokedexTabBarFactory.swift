@@ -11,13 +11,13 @@ import UIKit
 struct PokedexTabBarFactory {
     static func makeTabControllers() -> [UIViewController] {
         let controllers: [UIViewController] = [
-            PokedexTabBarFactory.makeHomeController()
+            PokedexTabBarFactory.makePokedexController()
         ]
         return controllers
     }
     
-    private static func makeHomeController() -> UIViewController {
-        let controller = ViewController()
+    private static func makePokedexController() -> UIViewController {
+        let controller = PokedexFactory.makeController()
         let item = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
         controller.tabBarItem = item
         return controller

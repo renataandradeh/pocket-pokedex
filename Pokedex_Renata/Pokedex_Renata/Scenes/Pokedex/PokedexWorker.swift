@@ -18,12 +18,14 @@ enum PokedexWorkerResult {
 }
 
 protocol PokedexAPIClient {
-    func fetchPokedex(url: URL, completion: @escaping (PokedexWorkerResult) -> Void)
+    func fetchPokedex(completion: @escaping (PokedexWorkerResult) -> Void)
 }
 
 //  MARK: - Networking
 class PokedexWorker: Networking {
     var session: URLSession
+    
+    let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10")!
     
     init(session: URLSession = URLSession.shared) {
         self.session = session
@@ -38,7 +40,7 @@ class PokedexWorker: Networking {
 
 //  MARK: - PokedexAPIClient
 extension PokedexWorker: PokedexAPIClient {
-    func fetchPokedex(url: URL, completion: @escaping (PokedexWorkerResult) -> Void) {
+    func fetchPokedex(completion: @escaping (PokedexWorkerResult) -> Void) {
         session.dataTask(with: makeRequest(withURL: url, method: .get)) { (data, response, error) in
             guard let data = data, error == nil else {
                 if let _ = error {

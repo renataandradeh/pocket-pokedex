@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PokedexView: UIView {
     override init(frame: CGRect) {
@@ -19,6 +20,8 @@ class PokedexView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var pokemonList: [String] = []
+    
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
         tableView.delegate = self
@@ -28,6 +31,11 @@ class PokedexView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonList.ViewModel) {
+        pokemonList = viewModel.pokemonNames
+        tableView.reloadData()
+    }
 }
 
 extension PokedexView: ViewCode {
@@ -36,19 +44,19 @@ extension PokedexView: ViewCode {
     }
     
     func setupConstraints() {
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     func additionalConfigurations() {
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
         backgroundColor = .white
     }
 }
 
 extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return pokemonList.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -57,6 +65,7 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexTableViewCell") as! PokedexTableViewCell
+        cell.nameLabel.text = pokemonList[indexPath.row]
         return cell
     }
     

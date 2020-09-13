@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		12825A07250C059800EC915D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12825A05250C059800EC915D /* LaunchScreen.storyboard */; };
 		12825A1D250C151700EC915D /* PokedexWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12825A1C250C151700EC915D /* PokedexWorker.swift */; };
 		12825A21250C165E00EC915D /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12825A20250C165E00EC915D /* Pokemon.swift */; };
+		12A8C42E250E7D2000BC4217 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12A8C42D250E7D2000BC4217 /* SnapKit */; };
 		12AFE76C250C28AE00BAEAB0 /* Pokedex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE76B250C28AE00BAEAB0 /* Pokedex.swift */; };
 		12AFE770250C3D8900BAEAB0 /* PokedexWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE76F250C3D8900BAEAB0 /* PokedexWorkerTests.swift */; };
 		12AFE772250C535E00BAEAB0 /* URLProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFE771250C535E00BAEAB0 /* URLProtocolMock.swift */; };
@@ -67,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12A8C42E250E7D2000BC4217 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +230,9 @@
 			dependencies = (
 			);
 			name = Pokedex_Renata;
+			packageProductDependencies = (
+				12A8C42D250E7D2000BC4217 /* SnapKit */,
+			);
 			productName = Pokedex_Renata;
 			productReference = 128259F7250C059400EC915D /* Pokedex_Renata.app */;
 			productType = "com.apple.product-type.application";
@@ -278,6 +283,9 @@
 				Base,
 			);
 			mainGroup = 128259EE250C059400EC915D;
+			packageReferences = (
+				12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 128259F8250C059400EC915D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -593,6 +601,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12A8C42D250E7D2000BC4217 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 128259EF250C059400EC915D /* Project object */;
 }

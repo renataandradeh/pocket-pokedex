@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SnapKit",
+        "repositoryURL": "https://github.com/SnapKit/SnapKit.git",
+        "state": {
+          "branch": null,
+          "revision": "0c92c7a9a90ee7a9c71f95f400f86e0d611f757f",
+          "version": "4.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

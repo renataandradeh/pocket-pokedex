@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Pokemon: Model {
+struct PokemonReference: Model {
     let name: String
     let url: String
 }

@@ -9,21 +9,21 @@
 import UIKit
 
 protocol PokedexDisplayLogic: AnyObject {
-    func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel)
+    func displayPokemonReferenceList(viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel)
 }
 
 class PokedexViewController: UIViewController {
     private var interactor: PokedexBusinessLogic?
     
     override func loadView() {
-        view = PokedexView()
+        view = PokedexView(delegate: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
+        interactor?.fetchPokemonReferenceList(request: PokedexModels.FetchPokemonReferenceList.Request())
     }
     
     func setup(interactor: PokedexBusinessLogic? = nil) {
@@ -32,8 +32,14 @@ class PokedexViewController: UIViewController {
 }
 
 extension PokedexViewController: PokedexDisplayLogic {
-    func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
+    func displayPokemonReferenceList(viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel) {
         guard let pokedexView = view as? PokedexView else { return }
         pokedexView.updateView(withViewModel: viewModel)
+    }
+}
+
+extension PokedexViewController: PokedexViewDelegate {
+    func didScrollToTheEnd() {
+        interactor?.fetchPokemonReferenceList(request: PokedexModels.FetchPokemonReferenceList.Request())
     }
 }

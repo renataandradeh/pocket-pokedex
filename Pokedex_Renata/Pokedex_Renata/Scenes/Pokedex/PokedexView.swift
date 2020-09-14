@@ -9,9 +9,17 @@
 import UIKit
 import SnapKit
 
+protocol PokedexViewDelegate: AnyObject {
+    func didScrollToTheEnd()
+}
+
 class PokedexView: UIView {
-    override init(frame: CGRect) {
+    private weak var delegate: PokedexViewDelegate?
+    private var pokemonList: [String] = []
+    
+    init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
+        self.delegate = delegate
         setupView()
     }
     
@@ -19,8 +27,6 @@ class PokedexView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var pokemonList: [String] = []
     
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
@@ -32,12 +38,13 @@ class PokedexView: UIView {
         return tableView
     }()
     
-    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        pokemonList = viewModel.pokemonNames
+    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel) {
+        pokemonList.append(contentsOf: viewModel.pokemonNames)
         tableView.reloadData()
     }
 }
 
+//  MARK: - ViewCode
 extension PokedexView: ViewCode {
     func buildViewHierarchy() {
         addSubview(tableView)
@@ -54,6 +61,7 @@ extension PokedexView: ViewCode {
     }
 }
 
+//  MARK: - UITableViewDelegate, UITableViewDataSource
 extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pokemonList.count
@@ -71,5 +79,17 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+}
+
+//  MARK: - UIScrollViewDelegate
+extension PokedexView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let height = scrollView.frame.size.height
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        if distanceFromBottom < height {
+            delegate?.didScrollToTheEnd()
+        }
     }
 }

@@ -9,12 +9,12 @@
 import Foundation
 
 enum PokedexModels {
-    enum FetchPokemonList {
+    enum FetchPokemonReferenceList {
         struct Request {
         }
         
         struct Response: Model {
-            let pokemonList: [Pokemon]
+            let referenceList: [PokemonReference]
         }
         
         struct ViewModel {

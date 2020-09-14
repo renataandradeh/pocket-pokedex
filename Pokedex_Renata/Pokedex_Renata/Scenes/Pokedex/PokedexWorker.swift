@@ -31,7 +31,7 @@ class PokedexWorker: Networking {
     
     func makeRequest(withURL url: URL, method: HTTPMethod) -> URLRequest {
         var request = URLRequest(url: url)
-        request.httpMethod = method.value
+        request.httpMethod = method.type
         return request
     }
 }

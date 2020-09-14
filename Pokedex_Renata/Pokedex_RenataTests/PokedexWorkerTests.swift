@@ -17,7 +17,7 @@ class PokedexWorkerTests: XCTestCase {
         URLProtocolMock.set(url: Seeds.Dummy.url!, data: Seeds.Mock.data)
         
         let exp = expectation(description: "waiting")
-        sut.fetchPokedex(url: Seeds.Dummy.url!) { (result) in
+        sut.fetchPokedex(nextPageURL: Seeds.Dummy.url!) { (result) in
             switch result {
             case .failure: XCTFail()
             case .success(let data): XCTAssertEqual(data!, Seeds.Mock.expectedModel)
@@ -33,7 +33,7 @@ class PokedexWorkerTests: XCTestCase {
         URLProtocolMock.set(url: Seeds.Dummy.url!, error: Seeds.Dummy.error)
         
         let exp = expectation(description: "waiting")
-        sut.fetchPokedex(url: Seeds.Dummy.url!) { (result) in
+        sut.fetchPokedex(nextPageURL: Seeds.Dummy.url!) { (result) in
             switch result {
             case .failure(let error): XCTAssertEqual(error, Seeds.Dummy.error)
             case .success: XCTFail()

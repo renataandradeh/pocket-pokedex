@@ -14,11 +14,11 @@ enum PokedexModels {
         }
         
         struct Response: Model {
-            let referenceList: [PokemonReference]
+            let referenceList: [Reference]
         }
         
         struct ViewModel {
-            let pokemonNames: [String]
+            let pokemonReferences: [Reference]
         }
     }
 }

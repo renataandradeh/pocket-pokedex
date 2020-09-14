@@ -18,7 +18,7 @@ enum PokedexWorkerResult {
 }
 
 protocol PokedexAPIClient {
-    func fetchPokedex(nextPageURL: URL?,completion: @escaping (PokedexWorkerResult) -> Void)
+    func fetchPokedex(nextPageURL: URL?, completion: @escaping (PokedexWorkerResult) -> Void)
 }
 
 //  MARK: - Networking

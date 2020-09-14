@@ -15,7 +15,7 @@ protocol PokedexViewDelegate: AnyObject {
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
-    private var pokemonList: [String] = []
+    private var pokemonList: [Reference] = []
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -39,7 +39,7 @@ class PokedexView: UIView {
     }()
     
     func updateView(withViewModel viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel) {
-        pokemonList.append(contentsOf: viewModel.pokemonNames)
+        pokemonList.append(contentsOf: viewModel.pokemonReferences)
         tableView.reloadData()
     }
 }
@@ -73,7 +73,7 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexTableViewCell") as! PokedexTableViewCell
-        cell.nameLabel.text = pokemonList[indexPath.row]
+        cell.nameLabel.text = pokemonList[indexPath.row].name
         return cell
     }
     

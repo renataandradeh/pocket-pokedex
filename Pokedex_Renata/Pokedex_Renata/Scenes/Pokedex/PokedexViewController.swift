@@ -38,6 +38,7 @@ extension PokedexViewController: PokedexDisplayLogic {
     }
 }
 
+//  MARK: - PokedexViewDelegate
 extension PokedexViewController: PokedexViewDelegate {
     func didScrollToTheEnd() {
         interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())

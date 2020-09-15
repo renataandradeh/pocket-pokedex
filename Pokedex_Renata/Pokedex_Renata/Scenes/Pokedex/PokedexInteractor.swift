@@ -10,6 +10,7 @@ import Foundation
 
 protocol PokedexBusinessLogic {
     func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request)
+//    func fetchPokemonImage()
 }
 
 protocol PokedexDataStore {

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 protocol PokedexViewDelegate: AnyObject {
     func didScrollToTheEnd()
@@ -73,7 +74,9 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexTableViewCell") as! PokedexTableViewCell
-        cell.nameLabel.text = pokemonList[indexPath.row].name
+        let pokemon = pokemonList[indexPath.row]
+        cell.nameLabel.text = pokemon.name
+        cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.sprites.frontDefault))
         return cell
     }
     

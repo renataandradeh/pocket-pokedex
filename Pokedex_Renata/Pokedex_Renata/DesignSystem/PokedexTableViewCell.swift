@@ -38,6 +38,10 @@ class PokedexTableViewCell: UITableViewCell {
         return stack
     }()
     
+    lazy var pokemonImageView: UIImageView = {
+        return UIImageView(frame: CGRect(x: .zero, y: .zero, width: 40, height: 40))
+    }()
+    
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
@@ -50,6 +54,7 @@ extension PokedexTableViewCell: ViewCode {
     func buildViewHierarchy() {
         contentView.addSubview(roundedView)
         roundedView.addSubview(contentStackView)
+        contentStackView.addArrangedSubview(pokemonImageView)
         contentStackView.addArrangedSubview(nameLabel)
     }
     

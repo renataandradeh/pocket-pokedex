@@ -15,6 +15,7 @@
 		1254A7D425102F600022DDC9 /* Sprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7D325102F600022DDC9 /* Sprites.swift */; };
 		1254A7D62510301E0022DDC9 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7D52510301E0022DDC9 /* Stat.swift */; };
 		1254A7D82510307F0022DDC9 /* TypeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7D72510307F0022DDC9 /* TypeElement.swift */; };
+		1254A7DB251051520022DDC9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1254A7DA251051520022DDC9 /* SDWebImage */; };
 		128259FB250C059400EC915D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128259FA250C059400EC915D /* AppDelegate.swift */; };
 		128259FF250C059400EC915D /* PokedexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128259FE250C059400EC915D /* PokedexViewController.swift */; };
 		12825A02250C059400EC915D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12825A00250C059400EC915D /* Main.storyboard */; };
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1254A7DB251051520022DDC9 /* SDWebImage in Frameworks */,
 				12A8C42E250E7D2000BC4217 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +278,7 @@
 			name = Pokedex_Renata;
 			packageProductDependencies = (
 				12A8C42D250E7D2000BC4217 /* SnapKit */,
+				1254A7DA251051520022DDC9 /* SDWebImage */,
 			);
 			productName = Pokedex_Renata;
 			productReference = 128259F7250C059400EC915D /* Pokedex_Renata.app */;
@@ -329,6 +332,7 @@
 			mainGroup = 128259EE250C059400EC915D;
 			packageReferences = (
 				12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1254A7D9251051520022DDC9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 128259F8250C059400EC915D /* Products */;
 			projectDirPath = "";
@@ -659,6 +663,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1254A7D9251051520022DDC9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -670,6 +682,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1254A7DA251051520022DDC9 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1254A7D9251051520022DDC9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		12A8C42D250E7D2000BC4217 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */;

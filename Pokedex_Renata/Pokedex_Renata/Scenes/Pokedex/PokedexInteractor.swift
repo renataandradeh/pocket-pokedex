@@ -9,39 +9,45 @@
 import Foundation
 
 protocol PokedexBusinessLogic {
-    func fetchPokemonReferenceList(request: PokedexModels.FetchPokemonReferenceList.Request)
+    func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request)
 }
 
 protocol PokedexDataStore {
     var nextPage: URL? { get set }
+    var isFetchInProgress: Bool { get set }
 }
 
 class PokedexInteractor: PokedexDataStore {
     private var presenter: PokedexPresentationLogic?
     private var worker: PokedexAPIClient?
     
-    var previousPage: URL?
     var nextPage: URL?
+    var isFetchInProgress: Bool
     
     init(presenter: PokedexPresentationLogic, worker: PokedexAPIClient) {
         self.presenter = presenter
         self.worker = worker
+        self.isFetchInProgress = false
     }
 }
 
 extension PokedexInteractor: PokedexBusinessLogic {
-    func fetchPokemonReferenceList(request: PokedexModels.FetchPokemonReferenceList.Request) {
-        worker?.fetchPokedex(nextPageURL: nextPage, completion: { [weak self] result in
+    func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request) {
+        guard !isFetchInProgress else { return }
+        isFetchInProgress = true
+        worker?.fetchPokemonList(nextPageURL: nextPage, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
                 print(error)
-            case .success(let list):
-                self.nextPage = URL(string: list?.next ?? "")
-                self.presenter?.presentPokemonReferenceList(
-                    response: PokedexModels.FetchPokemonReferenceList.Response(referenceList: list?.results ?? [])
+            //  TODO: present an error
+            case .success(let nextPage, let list):
+                self.nextPage = URL(string: nextPage ?? "")
+                self.presenter?.presentPokemonList(
+                    response: PokedexModels.FetchPokemonList.Response(pokemonList: list!)
                 )
             }
+            self.isFetchInProgress = false
         })
     }
 }

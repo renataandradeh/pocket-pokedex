@@ -8,7 +8,11 @@
 
 import Foundation
 
-class Sprites: Codable {
+class Sprites: Model {
+    static func == (lhs: Sprites, rhs: Sprites) -> Bool {
+        return lhs.animated == rhs.animated
+    }
+    
     let backDefault: String
     let frontDefault: String
     let animated: Sprites?

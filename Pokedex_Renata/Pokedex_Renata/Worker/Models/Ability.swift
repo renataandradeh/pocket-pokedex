@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Ability: Codable {
+struct Ability: Model {
     let ability: Reference
     let isHidden: Bool
     let slot: Int

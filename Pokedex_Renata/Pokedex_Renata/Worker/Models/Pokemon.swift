@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Pokemon: Codable {
+struct Pokemon: Model {
     let abilities: [Ability]
     let gameIndices: [GameIndex]
     let height: Int

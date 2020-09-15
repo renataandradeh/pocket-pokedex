@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Game: Codable {
+struct Game: Model {
     let gameIndex: Int
     let version: Reference
     

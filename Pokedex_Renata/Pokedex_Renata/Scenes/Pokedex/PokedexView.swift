@@ -15,7 +15,7 @@ protocol PokedexViewDelegate: AnyObject {
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
-    private var pokemonList: [Reference] = []
+    private var pokemonList: [Pokemon] = []
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -38,8 +38,8 @@ class PokedexView: UIView {
         return tableView
     }()
     
-    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel) {
-        pokemonList.append(contentsOf: viewModel.pokemonReferences)
+    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonList.ViewModel) {
+        pokemonList.append(contentsOf: viewModel.pokemonList)
         tableView.reloadData()
     }
 }
@@ -88,7 +88,7 @@ extension PokedexView: UIScrollViewDelegate {
         let height = scrollView.frame.size.height
         let contentYoffset = scrollView.contentOffset.y
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        if distanceFromBottom < height {
+        if distanceFromBottom <= (height + height * 0.3) {
             delegate?.didScrollToTheEnd()
         }
     }

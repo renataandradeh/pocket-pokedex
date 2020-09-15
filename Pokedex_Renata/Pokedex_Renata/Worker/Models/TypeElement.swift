@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TypeElement: Codable {
+struct TypeElement: Model {
     let slot: Int
     let type: Reference
 }

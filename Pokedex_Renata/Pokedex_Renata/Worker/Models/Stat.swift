@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Stat: Codable {
+struct Stat: Model {
     let baseStat, effort: Int
     let stat: Reference
 

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PokedexPresentationLogic {
-    func presentPokemonReferenceList(response: PokedexModels.FetchPokemonReferenceList.Response)
+    func presentPokemonList(response: PokedexModels.FetchPokemonList.Response)
 }
 
 class PokedexPresenter {
@@ -21,10 +21,10 @@ class PokedexPresenter {
 }
 
 extension PokedexPresenter: PokedexPresentationLogic {
-    func presentPokemonReferenceList(response: PokedexModels.FetchPokemonReferenceList.Response) {
-        viewController?.displayPokemonReferenceList(
-            viewModel: PokedexModels.FetchPokemonReferenceList.ViewModel(
-                pokemonReferences: response.referenceList
+    func presentPokemonList(response: PokedexModels.FetchPokemonList.Response) {
+        viewController?.displayPokemonList(
+            viewModel: PokedexModels.FetchPokemonList.ViewModel(
+                pokemonList: response.pokemonList
             )
         )
     }

@@ -25,27 +25,30 @@ class PokedexTableViewCell: UITableViewCell {
     
     private lazy var roundedView: UIView = {
         let view = UIView(frame: CGRect(x: .zero, y: .zero, width: 100, height: 100))
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 5
+        view.addShadow()
         return view
     }()
     
     private lazy var contentStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.alignment = .leading
+        stack.alignment = .center
         stack.distribution = .equalCentering
+        stack.spacing = 24
         return stack
     }()
     
     lazy var pokemonImageView: UIImageView = {
-        return UIImageView(frame: CGRect(x: .zero, y: .zero, width: 40, height: 40))
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.Pokedex.whisperColor
+        imageView.contentMode = .scaleAspectFill
+        return imageView
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "test"
+        label.textColor = .gray
         return label
     }()
 }
@@ -63,7 +66,16 @@ extension PokedexTableViewCell: ViewCode {
             make.edges.equalToSuperview().inset(8)
         }
         contentStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(24)
         }
+        pokemonImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(88)
+        }
+    }
+    
+    func additionalConfigurations() {
+        selectionStyle = .none
+        pokemonImageView.layer.cornerRadius = 44
     }
 }

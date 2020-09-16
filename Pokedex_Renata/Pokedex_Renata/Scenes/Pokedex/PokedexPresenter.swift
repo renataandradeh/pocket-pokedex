@@ -22,10 +22,12 @@ class PokedexPresenter {
 
 extension PokedexPresenter: PokedexPresentationLogic {
     func presentPokemonList(response: PokedexModels.FetchPokemonList.Response) {
+        var list: [Reference] = []
+        for pokemon in response.pokemons {
+            list.append(Reference(name: pokemon.name, url: pokemon.sprites.frontDefault))
+        }
         viewController?.displayPokemonList(
-            viewModel: PokedexModels.FetchPokemonList.ViewModel(
-                pokemonList: response.pokemonList
-            )
+            viewModel: PokedexModels.FetchPokemonList.ViewModel(pokemons: list)
         )
     }
 }

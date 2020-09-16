@@ -16,6 +16,8 @@
 		1254A7D62510301E0022DDC9 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7D52510301E0022DDC9 /* Stat.swift */; };
 		1254A7D82510307F0022DDC9 /* TypeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7D72510307F0022DDC9 /* TypeElement.swift */; };
 		1254A7DB251051520022DDC9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1254A7DA251051520022DDC9 /* SDWebImage */; };
+		1254A7DD251190CB0022DDC9 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7DC251190CB0022DDC9 /* UIView+Shadow.swift */; };
+		1254A7E225119E130022DDC9 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254A7E125119E130022DDC9 /* UIColor+Colors.swift */; };
 		128259FB250C059400EC915D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128259FA250C059400EC915D /* AppDelegate.swift */; };
 		128259FF250C059400EC915D /* PokedexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128259FE250C059400EC915D /* PokedexViewController.swift */; };
 		12825A02250C059400EC915D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12825A00250C059400EC915D /* Main.storyboard */; };
@@ -60,6 +62,8 @@
 		1254A7D325102F600022DDC9 /* Sprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprites.swift; sourceTree = "<group>"; };
 		1254A7D52510301E0022DDC9 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		1254A7D72510307F0022DDC9 /* TypeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeElement.swift; sourceTree = "<group>"; };
+		1254A7DC251190CB0022DDC9 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		1254A7E125119E130022DDC9 /* UIColor+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		128259F7250C059400EC915D /* Pokedex_Renata.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex_Renata.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		128259FA250C059400EC915D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		128259FE250C059400EC915D /* PokedexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1254A7E025119DEB0022DDC9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1254A7DC251190CB0022DDC9 /* UIView+Shadow.swift */,
+				1254A7E125119E130022DDC9 /* UIColor+Colors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		128259EE250C059400EC915D = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +261,7 @@
 			children = (
 				12BF7AC5250D73990017BABC /* Protocol */,
 				12BF7AC6250D9B670017BABC /* PokedexTableViewCell.swift */,
+				1254A7E025119DEB0022DDC9 /* Extensions */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -374,6 +388,7 @@
 				12825A21250C165E00EC915D /* Reference.swift in Sources */,
 				12BF7AC9250D9C870017BABC /* PokedexView.swift in Sources */,
 				12A8C435250EAC4B00BC4217 /* PokedexModels.swift in Sources */,
+				1254A7E225119E130022DDC9 /* UIColor+Colors.swift in Sources */,
 				1254A7CE25102D5F0022DDC9 /* Pokemon.swift in Sources */,
 				1254A7D62510301E0022DDC9 /* Stat.swift in Sources */,
 				1254A7D025102DBC0022DDC9 /* Ability.swift in Sources */,
@@ -390,6 +405,7 @@
 				1254A7CC25102A960022DDC9 /* Game.swift in Sources */,
 				12A8C431250EA85A00BC4217 /* PokedexInteractor.swift in Sources */,
 				1254A7D425102F600022DDC9 /* Sprites.swift in Sources */,
+				1254A7DD251190CB0022DDC9 /* UIView+Shadow.swift in Sources */,
 				12BF7ABD250D6EBF0017BABC /* PokedexTabBarController.swift in Sources */,
 				1254A7C8250EFBFF0022DDC9 /* URLBuilder.swift in Sources */,
 				12825A1D250C151700EC915D /* PokedexWorker.swift in Sources */,

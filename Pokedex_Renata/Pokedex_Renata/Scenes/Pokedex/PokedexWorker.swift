@@ -113,7 +113,6 @@ extension PokedexWorker: PokedexAPIClient {
                     }
                 }
                 group.notify(queue: .main) {
-                    print("entrou aqui")
                     completion(.success(nextPage: list.next, pokemonList: pokemonList))
                 }
             }

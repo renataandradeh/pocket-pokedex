@@ -16,7 +16,7 @@ protocol PokedexViewDelegate: AnyObject {
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
-    private var pokemonList: [Pokemon] = []
+    private var pokemons: [Reference] = []
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -40,7 +40,7 @@ class PokedexView: UIView {
     }()
     
     func updateView(withViewModel viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        pokemonList.append(contentsOf: viewModel.pokemonList)
+        pokemons.append(contentsOf: viewModel.pokemons)
         tableView.reloadData()
     }
 }
@@ -65,7 +65,7 @@ extension PokedexView: ViewCode {
 //  MARK: - UITableViewDelegate, UITableViewDataSource
 extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokemonList.count
+        return pokemons.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,9 +74,10 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexTableViewCell") as! PokedexTableViewCell
-        let pokemon = pokemonList[indexPath.row]
+        let pokemon = pokemons[indexPath.row]
         cell.nameLabel.text = pokemon.name
-        cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.sprites.frontDefault))
+        cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.url))
         return cell
     }
     

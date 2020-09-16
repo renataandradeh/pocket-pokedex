@@ -10,12 +10,11 @@ import Foundation
 
 protocol PokedexBusinessLogic {
     func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request)
-//    func fetchPokemonImage()
 }
 
 protocol PokedexDataStore {
-    var nextPage: URL? { get set }
-    var isFetchInProgress: Bool { get set }
+    var nextPage: URL? { get }
+    var pokemonList: [Pokemon]? { get }
 }
 
 class PokedexInteractor: PokedexDataStore {
@@ -23,6 +22,7 @@ class PokedexInteractor: PokedexDataStore {
     private var worker: PokedexAPIClient?
     
     var nextPage: URL?
+    var pokemonList: [Pokemon]?
     var isFetchInProgress: Bool
     
     init(presenter: PokedexPresentationLogic, worker: PokedexAPIClient) {
@@ -44,9 +44,12 @@ extension PokedexInteractor: PokedexBusinessLogic {
             //  TODO: present an error
             case .success(let nextPage, let list):
                 self.nextPage = URL(string: nextPage ?? "")
-                self.presenter?.presentPokemonList(
-                    response: PokedexModels.FetchPokemonList.Response(pokemonList: list!)
-                )
+                if let list = list {
+                    self.pokemonList = list
+                    self.presenter?.presentPokemonList(
+                        response: PokedexModels.FetchPokemonList.Response(pokemons: list)
+                    )
+                }
             }
             self.isFetchInProgress = false
         })

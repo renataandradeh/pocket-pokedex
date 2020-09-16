@@ -14,6 +14,7 @@ protocol PokedexDisplayLogic: AnyObject {
 
 class PokedexViewController: UIViewController {
     private var interactor: PokedexBusinessLogic?
+    private var router: (PokedexDataPassing & PokedexRoutingLogic)?
     
     override func loadView() {
         view = PokedexView(delegate: self)
@@ -26,8 +27,12 @@ class PokedexViewController: UIViewController {
         interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
     }
     
-    func setup(interactor: PokedexBusinessLogic? = nil) {
+    func setup(
+        interactor: PokedexBusinessLogic? = nil,
+        router: (PokedexDataPassing & PokedexRoutingLogic)?
+    ) {
         self.interactor = interactor
+        self.router = router
     }
 }
 
@@ -42,5 +47,10 @@ extension PokedexViewController: PokedexDisplayLogic {
 extension PokedexViewController: PokedexViewDelegate {
     func didScrollToTheEnd() {
         interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
+    }
+    
+    func didSelectPokemonAt(indexPath: IndexPath) {
+        guard let pokemon = interactor?.getPokemon(at: indexPath.row) else { return }
+        router?.routeToDetailsScreen()
     }
 }

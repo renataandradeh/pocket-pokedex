@@ -10,11 +10,12 @@ import Foundation
 
 protocol PokedexBusinessLogic {
     func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request)
+    func getPokemon(at index: Int) -> Pokemon?
 }
 
 protocol PokedexDataStore {
     var nextPage: URL? { get }
-    var pokemonList: [Pokemon]? { get }
+    var pokemons: [Pokemon]? { get }
 }
 
 class PokedexInteractor: PokedexDataStore {
@@ -22,17 +23,23 @@ class PokedexInteractor: PokedexDataStore {
     private var worker: PokedexAPIClient?
     
     var nextPage: URL?
-    var pokemonList: [Pokemon]?
+    var pokemons: [Pokemon]?
     var isFetchInProgress: Bool
     
     init(presenter: PokedexPresentationLogic, worker: PokedexAPIClient) {
         self.presenter = presenter
         self.worker = worker
+        self.pokemons = []
         self.isFetchInProgress = false
     }
 }
 
 extension PokedexInteractor: PokedexBusinessLogic {
+    func getPokemon(at index: Int) -> Pokemon? {
+        guard let pokemons = pokemons, index >= 0, index < pokemons.count else { return nil }
+        return pokemons[index]
+    }
+    
     func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request) {
         guard !isFetchInProgress else { return }
         isFetchInProgress = true
@@ -45,7 +52,7 @@ extension PokedexInteractor: PokedexBusinessLogic {
             case .success(let nextPage, let list):
                 self.nextPage = URL(string: nextPage ?? "")
                 if let list = list {
-                    self.pokemonList = list
+                    self.pokemons?.append(contentsOf: list)
                     self.presenter?.presentPokemonList(
                         response: PokedexModels.FetchPokemonList.Response(pokemons: list)
                     )

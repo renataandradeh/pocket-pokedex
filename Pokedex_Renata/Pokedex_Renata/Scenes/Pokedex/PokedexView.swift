@@ -12,6 +12,7 @@ import SDWebImage
 
 protocol PokedexViewDelegate: AnyObject {
     func didScrollToTheEnd()
+    func didSelectPokemonAt(indexPath: IndexPath)
 }
 
 class PokedexView: UIView {
@@ -62,8 +63,8 @@ extension PokedexView: ViewCode {
     }
 }
 
-//  MARK: - UITableViewDelegate, UITableViewDataSource
-extension PokedexView: UITableViewDelegate, UITableViewDataSource {
+//  MARK: - UITableViewDataSource
+extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pokemons.count
     }
@@ -83,6 +84,13 @@ extension PokedexView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+}
+
+//  MARK: - UITableViewDelegate
+extension PokedexView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectPokemonAt(indexPath: indexPath)
     }
 }
 

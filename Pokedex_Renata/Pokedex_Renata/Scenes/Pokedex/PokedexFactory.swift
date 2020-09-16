@@ -14,7 +14,8 @@ struct PokedexFactory {
         let worker = PokedexWorker()
         let presenter = PokedexPresenter(viewController: viewController)
         let interactor = PokedexInteractor(presenter: presenter, worker: worker)
-        viewController.setup(interactor: interactor)
+        let router = PokedexRouter(dataStore: interactor, viewController: viewController)
+        viewController.setup(interactor: interactor, router: router)
         return viewController
     }
 }

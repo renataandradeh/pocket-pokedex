@@ -22,8 +22,6 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
         interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
     }
     
@@ -51,6 +49,7 @@ extension PokedexViewController: PokedexViewDelegate {
     
     func didSelectPokemonAt(indexPath: IndexPath) {
         guard let pokemon = interactor?.getPokemon(at: indexPath.row) else { return }
-        router?.routeToDetailsScreen()
+        interactor?.setCurrent(pokemon: pokemon)
+        router?.navigateToDetailsScreen()
     }
 }

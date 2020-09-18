@@ -66,7 +66,7 @@ class PokemonDetailsView: UIView {
     private lazy var titleHStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.alignment = .top
+        stack.alignment = .center
         stack.distribution = .equalSpacing
         return stack
     }()
@@ -85,12 +85,6 @@ class PokemonDetailsView: UIView {
         label.textColor = .gray
         label.text = "#\(viewModel?.pokemon?.id ?? 00)"
         return label
-    }()
-    
-    private lazy var footerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.whisperColor
-        return view
     }()
     
     private lazy var tagsHStackView: UIStackView = {
@@ -114,6 +108,64 @@ class PokemonDetailsView: UIView {
         }
         return tags
     }
+    
+    private lazy var footerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.whisperColor
+        return view
+    }()
+    
+    private lazy var footerVStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .top
+        stack.distribution = .fillProportionally
+        stack.spacing = 8
+        return stack
+    }()
+    
+    private lazy var heightWeightView: UIView = {
+        let view = UIView(frame: CGRect(x: .zero, y: .zero, width: .zero, height: 100))
+        view.addShadow(
+            backgroundColor: .white,
+            cornerRadius: 5,
+            shadowColor: .gray,
+            shadowOffset: .zero
+        )
+        return view
+    }()
+    
+    private lazy var heightValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.pageTitle
+        label.textColor = .gray
+        label.text = "\(viewModel?.pokemon?.height ?? 0) m"
+        return label
+    }()
+    
+    private lazy var weightValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.pageTitle
+        label.textColor = .gray
+        label.text = "\(viewModel?.pokemon?.weight ?? 0) kg"
+        return label
+    }()
+    
+    private lazy var heightTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.itemTitle
+        label.textColor = .gray
+        label.text = "height"
+        return label
+    }()
+    
+    private lazy var weightTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.itemTitle
+        label.textColor = .gray
+        label.text = "weight"
+        return label
+    }()
 }
 
 //  MARK: - ViewCode
@@ -126,13 +178,18 @@ extension PokemonDetailsView: ViewCode {
         titleHStackView.addArrangedSubview(nameLabel)
         titleHStackView.addArrangedSubview(idLabel)
         headerVStackView.addArrangedSubview(tagsHStackView)
-        
         for tag in tagsCollection {
             tagsHStackView.addArrangedSubview(tag)
         }
-        
         contentStackView.addArrangedSubview(footerView)
         addSubview(pokemonImageView)
+        
+        footerView.addSubview(footerVStackView)
+        footerVStackView.addArrangedSubview(heightWeightView)
+        heightWeightView.addSubview(heightValueLabel)
+        heightWeightView.addSubview(weightValueLabel)
+        heightWeightView.addSubview(heightTitleLabel)
+        heightWeightView.addSubview(weightTitleLabel)
     }
     
     func setupConstraints() {
@@ -150,14 +207,41 @@ extension PokemonDetailsView: ViewCode {
             make.left.right.top.equalToSuperview()
         }
         pokemonImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(240)
+            make.width.height.equalTo(frame.height / 3)
             make.centerX.equalTo(frame.width / 2)
             make.centerY.equalTo(frame.height / 2.5)
+        }
+        footerVStackView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(16)
+            make.center.equalToSuperview()
+        }
+        heightWeightView.snp.makeConstraints { make in
+            make.width.equalTo(pokemonImageView.snp.width)
+            make.centerX.equalTo(pokemonImageView.snp.centerX)
+        }
+        heightValueLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.left.equalToSuperview().inset(32)
+        }
+        weightValueLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.right.equalToSuperview().inset(32)
+        }
+        heightTitleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(heightValueLabel.snp.centerX)
+            make.top.equalTo(heightValueLabel.snp.bottom).offset(8)
+            make.bottom.equalToSuperview().inset(8)
+        }
+        weightTitleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(weightValueLabel.snp.centerX)
+            make.centerY.equalTo(heightTitleLabel)
+            make.bottom.equalToSuperview().inset(8)
         }
     }
 
     func additionalConfigurations() {
         backgroundColor = .white
-        pokemonImageView.layer.cornerRadius = 120
+        pokemonImageView.layer.cornerRadius = frame.height / 6
+        footerView.backgroundColor = tagsCollection.randomElement()?.backgroundColor
     }
 }

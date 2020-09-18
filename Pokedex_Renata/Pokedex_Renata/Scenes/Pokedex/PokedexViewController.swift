@@ -50,6 +50,6 @@ extension PokedexViewController: PokedexViewDelegate {
     func didSelectPokemonAt(indexPath: IndexPath) {
         guard let pokemon = interactor?.getPokemon(at: indexPath.row) else { return }
         interactor?.setCurrent(pokemon: pokemon)
-        router?.navigateToDetailsScreen()
+        router?.routeToDetailsScreen()
     }
 }

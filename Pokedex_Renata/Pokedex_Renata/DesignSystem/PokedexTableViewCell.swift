@@ -40,7 +40,7 @@ class PokedexTableViewCell: UITableViewCell {
     
     lazy var pokemonImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.Pokedex.whisperColor
+        imageView.backgroundColor = UIColor.whisperColor
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -67,7 +67,7 @@ extension PokedexTableViewCell: ViewCode {
         }
         contentStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
-            make.leading.trailing.equalToSuperview().inset(24)
+            make.left.right.equalToSuperview().inset(24)
         }
         pokemonImageView.snp.makeConstraints { make in
             make.width.height.equalTo(88)

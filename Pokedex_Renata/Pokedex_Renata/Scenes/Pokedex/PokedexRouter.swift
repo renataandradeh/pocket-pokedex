@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PokedexRoutingLogic {
-    func navigateToDetailsScreen()
+    func routeToDetailsScreen()
 }
 
 protocol PokedexDataPassing {
@@ -25,9 +25,8 @@ class PokedexRouter: PokedexDataPassing, PokedexRoutingLogic {
         self.viewController = viewController
     }
     
-    func navigateToDetailsScreen() {
-        let vc = PokemonDetailsViewController()
-        vc.pokemon = dataStore?.currentPokemon
+    func routeToDetailsScreen() {
+        let vc = PokemonDetailsFactory.makeController(currentPokemon: dataStore?.currentPokemon)
         viewController?.present(vc, animated: true)
     }
 }

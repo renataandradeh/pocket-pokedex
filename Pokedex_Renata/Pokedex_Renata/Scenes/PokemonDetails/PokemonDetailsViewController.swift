@@ -9,9 +9,13 @@
 import UIKit
 
 class PokemonDetailsViewController: UIViewController {
-    var pokemon: Pokemon?
+    var currentPokemon: Pokemon?
+    
+    func setup(currentPokemon: Pokemon) {
+        self.currentPokemon = currentPokemon
+    }
     
     override func loadView() {
-        view = PokemonDetailsView(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: pokemon))
+        view = PokemonDetailsView(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: currentPokemon))
     }
 }

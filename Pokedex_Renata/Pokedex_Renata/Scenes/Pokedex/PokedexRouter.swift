@@ -27,6 +27,6 @@ class PokedexRouter: PokedexDataPassing, PokedexRoutingLogic {
     
     func routeToDetailsScreen() {
         let vc = PokemonDetailsFactory.makeController(currentPokemon: dataStore?.currentPokemon)
-        viewController?.present(vc, animated: true)
+        viewController?.show(vc, sender: true)
     }
 }

@@ -25,6 +25,16 @@ class PokedexViewController: UIViewController {
         interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func setup(
         interactor: PokedexBusinessLogic? = nil,
         router: (PokedexDataPassing & PokedexRoutingLogic)?

@@ -11,6 +11,10 @@ import UIKit
 class PokemonDetailsViewController: UIViewController {
     var currentPokemon: Pokemon?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     func setup(currentPokemon: Pokemon) {
         self.currentPokemon = currentPokemon
     }

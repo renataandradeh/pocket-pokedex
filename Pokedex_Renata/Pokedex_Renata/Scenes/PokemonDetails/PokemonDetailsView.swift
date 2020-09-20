@@ -81,7 +81,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var idLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.itemTitle
+        label.font = UIFont.itemTitleBold
         label.textColor = .gray
         label.text = "#\(viewModel?.pokemon?.id ?? 00)"
         return label
@@ -137,17 +137,19 @@ class PokemonDetailsView: UIView {
     
     private lazy var heightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageTitle
+        label.font = UIFont.pageSubTitle
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.height ?? 0) m"
+        label.sizeToFit()
         return label
     }()
     
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageTitle
+        label.font = UIFont.pageSubTitle
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.weight ?? 0) kg"
+        label.sizeToFit()
         return label
     }()
     
@@ -201,7 +203,7 @@ extension PokemonDetailsView: ViewCode {
         }
         headerVStackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(48)
+            make.top.equalToSuperview().inset(8)
         }
         titleHStackView.snp.makeConstraints { make in
             make.left.right.top.equalToSuperview()
@@ -209,7 +211,7 @@ extension PokemonDetailsView: ViewCode {
         pokemonImageView.snp.makeConstraints { make in
             make.width.height.equalTo(frame.height / 3)
             make.centerX.equalTo(frame.width / 2)
-            make.centerY.equalTo(frame.height / 2.5)
+            make.centerY.equalTo(frame.height / 3)
         }
         footerVStackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(16)

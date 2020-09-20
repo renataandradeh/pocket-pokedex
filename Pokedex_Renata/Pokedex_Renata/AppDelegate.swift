@@ -13,18 +13,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)
         let controller = PokedexTaBarController()
-        
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.isNavigationBarHidden = true
-        
+        let navigationController = configureNavigation(withController: controller)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
         return true
+    }
+    
+    private func configureNavigation(withController controller: UIViewController) -> UINavigationController {
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.shadowImage = UIImage()
+        navigationController.navigationBar.tintColor = .gray
+        navigationController.isNavigationBarHidden = true
+        return navigationController
     }
 }
 

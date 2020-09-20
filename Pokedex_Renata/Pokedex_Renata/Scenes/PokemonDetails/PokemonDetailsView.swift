@@ -10,12 +10,21 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+protocol PokemonDetailsViewDelegate: AnyObject {
+    func didTapStatsButton()
+}
+
 class PokemonDetailsView: UIView {
     private var viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel?
+    private weak var delegate: PokemonDetailsViewDelegate?
     
-    init(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel?) {
+    init(
+        delegate: PokemonDetailsViewDelegate,
+        viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel?
+    ) {
         super.init(frame: UIScreen.main.bounds)
         self.viewModel = viewModel
+        self.delegate = delegate
         setupView()
     }
     
@@ -89,7 +98,6 @@ class PokemonDetailsView: UIView {
     
     private lazy var tagsHStackView: UIStackView = {
         let stack = UIStackView()
-        stack.backgroundColor = .red
         stack.alignment = .top
         stack.spacing = 8
         return stack
@@ -120,7 +128,7 @@ class PokemonDetailsView: UIView {
         stack.axis = .vertical
         stack.alignment = .top
         stack.distribution = .fillProportionally
-        stack.spacing = 8
+        stack.spacing = 16
         return stack
     }()
     
@@ -168,6 +176,30 @@ class PokemonDetailsView: UIView {
         label.text = "weight"
         return label
     }()
+    
+    private lazy var footerButtonsHStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment = .center
+        stack.spacing = 8
+        return stack
+    }()
+    
+    private lazy var statsLabel: PaddingLabel = {
+        let label = PaddingLabel(withInsets: 16, 16, 8, 8)
+        label.addShadow(backgroundColor: .white, cornerRadius: 27, shadowColor: .gray)
+        label.layer.masksToBounds = true
+        label.font = UIFont.itemTitleBold
+        label.textColor = .gray
+        label.text = "stats"
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target:self, action: #selector(doStatsButtonAction))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+
+    @objc func doStatsButtonAction() {
+        delegate?.didTapStatsButton()
+    }
 }
 
 //  MARK: - ViewCode
@@ -192,6 +224,8 @@ extension PokemonDetailsView: ViewCode {
         heightWeightView.addSubview(weightValueLabel)
         heightWeightView.addSubview(heightTitleLabel)
         heightWeightView.addSubview(weightTitleLabel)
+        footerVStackView.addArrangedSubview(footerButtonsHStackView)
+        footerButtonsHStackView.addArrangedSubview(statsLabel)
     }
     
     func setupConstraints() {
@@ -214,7 +248,7 @@ extension PokemonDetailsView: ViewCode {
             make.centerY.equalTo(frame.height / 3)
         }
         footerVStackView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(16)
+            make.left.right.equalToSuperview().inset(8)
             make.center.equalToSuperview()
         }
         heightWeightView.snp.makeConstraints { make in

@@ -11,7 +11,11 @@ import UIKit
 struct PokemonDetailsFactory {
     static func makeController(currentPokemon: Pokemon?) -> UIViewController {
         let viewController = PokemonDetailsViewController()
-        viewController.setup(currentPokemon: currentPokemon!)
+        let interactor = PokemonDetailsInteractor()
+        interactor.currentPokemon = currentPokemon
+        let router = PokemonDetailsRouter(dataStore: interactor, viewController: viewController)
+//        viewController.setup(currentPokemon: currentPokemon!)
+        viewController.setup(interactor: interactor, router: router)
         return viewController
     }
 }

@@ -10,16 +10,31 @@ import UIKit
 
 class PokemonDetailsViewController: UIViewController {
     var currentPokemon: Pokemon?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    private var interactor: PokemonDetailsBusinessLogic?
+    private var router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
+
     func setup(currentPokemon: Pokemon) {
         self.currentPokemon = currentPokemon
     }
     
+    func setup(
+        interactor: PokemonDetailsBusinessLogic,
+        router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
+    ) {
+        self.interactor = interactor
+        self.router = router
+    }
+    
     override func loadView() {
-        view = PokemonDetailsView(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: currentPokemon))
+        view = PokemonDetailsView(
+            delegate: self,
+            viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: router?.dataStore?.currentPokemon)
+        )
+    }
+}
+
+extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
+    func didTapStatsButton() {
+        router?.routeToStatsScreen()
     }
 }

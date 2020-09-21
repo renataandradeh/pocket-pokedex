@@ -23,7 +23,7 @@ class PokedexTableViewCell: UITableViewCell {
         setupView()
     }
     
-    private lazy var roundedView: UIView = {
+    lazy var roundedView: UIView = {
         let view = UIView(frame: CGRect(x: .zero, y: .zero, width: 100, height: 100))
         view.addShadow()
         return view
@@ -47,7 +47,15 @@ class PokedexTableViewCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.pageSubTitle
+        label.textColor = .white
+        return label
+    }()
+    
+    private lazy var chevronLabel: PaddingLabel = {
+        let label = PaddingLabel(withInsets: 8, 8, 8, 8)
+        label.font = UIFont.pageSubTitle
+        label.text = ">"
         label.textColor = .gray
         return label
     }()
@@ -59,6 +67,7 @@ extension PokedexTableViewCell: ViewCode {
         roundedView.addSubview(contentStackView)
         contentStackView.addArrangedSubview(pokemonImageView)
         contentStackView.addArrangedSubview(nameLabel)
+        roundedView.addSubview(chevronLabel)
     }
     
     func setupConstraints() {
@@ -67,15 +76,21 @@ extension PokedexTableViewCell: ViewCode {
         }
         contentStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
-            make.left.right.equalToSuperview().inset(24)
+            make.left.equalToSuperview().inset(24)
         }
         pokemonImageView.snp.makeConstraints { make in
             make.width.height.equalTo(88)
+        }
+        chevronLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.right.equalToSuperview().inset(24)
+            make.left.greaterThanOrEqualTo(contentStackView).inset(16)
         }
     }
     
     func additionalConfigurations() {
         selectionStyle = .none
         pokemonImageView.layer.cornerRadius = 44
+        chevronLabel.backgroundColor = .red
     }
 }

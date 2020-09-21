@@ -6,7 +6,14 @@
 //  Copyright © 2020 Renata Gondim Andrade. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct PokemonItem {
+    let name: String
+    let url: URL
+    let tags: [TagLabel]
+    let itemColor: UIColor
+}
 
 enum PokedexModels {
     enum FetchPokemonList {
@@ -18,7 +25,7 @@ enum PokedexModels {
         }
         
         struct ViewModel {
-            let pokemons: [Reference]
+            let pokemons: [PokemonItem]
         }
     }
 }

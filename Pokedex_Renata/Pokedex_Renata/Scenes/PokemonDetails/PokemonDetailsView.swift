@@ -37,6 +37,11 @@ class PokemonDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        footerView.applyGradient(colors: getColors(for: tagsCollection))
+    }
+
     private lazy var contentStackView: UIStackView = {
         let stack = UIStackView(
             frame: CGRect(
@@ -53,7 +58,11 @@ class PokemonDetailsView: UIView {
     
     private lazy var pokemonImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.addShadow(backgroundColor: .white, shadowColor: .gray, shadowOffset: .zero)
+        imageView.addShadow(
+            backgroundColor: .white,
+            shadowColor: .whisperColor,
+            shadowOffset: CGSize(width: 0, height: -1)
+        )
         imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         imageView.sd_setImage(
             with: URL(string:viewModel?.pokemon?.sprites.other?.officialArtwork.frontDefault ?? "")
@@ -123,7 +132,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var footerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.whisperColor
+        view.applyGradient(colors: [.whisperColor, .white])
         return view
     }()
     
@@ -137,19 +146,15 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var heightWeightView: UIView = {
-        let view = UIView(frame: CGRect(x: .zero, y: .zero, width: .zero, height: 100))
-        view.addShadow(
-            backgroundColor: .white,
-            cornerRadius: 5,
-            shadowColor: .gray,
-            shadowOffset: .zero
-        )
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
         return view
     }()
     
     private lazy var heightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubTitle
+        label.font = UIFont.pageSubTitleBold
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.height ?? 0) m"
         label.sizeToFit()
@@ -158,7 +163,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubTitle
+        label.font = UIFont.pageSubTitleBold
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.weight ?? 0) kg"
         label.sizeToFit()
@@ -224,7 +229,12 @@ class PokemonDetailsView: UIView {
     
     private func makeCirclePaddingLabel(withTitle title: String) -> PaddingLabel {
         let label = PaddingLabel(withInsets: 16, 16, 8, 8)
-        label.addShadow(backgroundColor: .white, cornerRadius: 10, shadowColor: .gray)
+        label.addShadow(
+            backgroundColor: .white,
+            cornerRadius: 10,
+            shadowColor: .black,
+            shadowOffset: CGSize(width: 0, height: 1.0)
+        )
         label.layer.masksToBounds = true
         label.font = UIFont.itemTitleBold
         label.textColor = .gray
@@ -246,6 +256,14 @@ class PokemonDetailsView: UIView {
     
     @objc func addTofavoritesTapped() {
         delegate?.didTapAddToFavorites()
+    }
+    
+    private func getColors(for tags: [TagLabel]) -> [UIColor] {
+        var colors: [UIColor] = []
+        for tag in tags {
+            colors.append(tag.backgroundColor ?? .white)
+        }
+        return colors
     }
 }
 
@@ -315,12 +333,12 @@ extension PokemonDetailsView: ViewCode {
         heightTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(heightValueLabel.snp.centerX)
             make.top.equalTo(heightValueLabel.snp.bottom).offset(8)
-            make.bottom.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(16)
         }
         weightTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(weightValueLabel.snp.centerX)
             make.centerY.equalTo(heightTitleLabel)
-            make.bottom.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(16)
         }
         footerCircleLabelsHStackView.snp.makeConstraints { make in
             make.left.right.equalTo(heightWeightView)
@@ -330,7 +348,6 @@ extension PokemonDetailsView: ViewCode {
     func additionalConfigurations() {
         backgroundColor = .white
         pokemonImageView.layer.cornerRadius = frame.height / 6
-        footerView.backgroundColor = tagsCollection.randomElement()?.backgroundColor
         makeAddToFavoritesBarButtonItem()
     }
 }

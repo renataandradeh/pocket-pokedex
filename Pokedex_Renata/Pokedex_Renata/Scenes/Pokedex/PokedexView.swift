@@ -17,7 +17,7 @@ protocol PokedexViewDelegate: AnyObject {
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
-    private var pokemons: [Reference] = []
+    private var pokemons: [PokemonItem] = []
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -57,10 +57,6 @@ extension PokedexView: ViewCode {
             make.edges.equalToSuperview()
         }
     }
-    
-    func additionalConfigurations() {
-        backgroundColor = .white
-    }
 }
 
 //  MARK: - UITableViewDataSource
@@ -78,7 +74,9 @@ extension PokedexView: UITableViewDataSource {
         let pokemon = pokemons[indexPath.row]
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.url))
+        cell.pokemonImageView.sd_setImage(with: pokemon.url)
+        cell.roundedView.backgroundColor = pokemon.itemColor
+        cell.pokemonImageView.backgroundColor = pokemon.itemColor.lighter(by: 20)
         return cell
     }
     

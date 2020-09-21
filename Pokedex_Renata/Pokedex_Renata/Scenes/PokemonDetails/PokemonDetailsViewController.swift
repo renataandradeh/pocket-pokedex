@@ -34,7 +34,15 @@ class PokemonDetailsViewController: UIViewController {
 }
 
 extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
-    func didTapStatsButton() {
+    func didTapAbilitiesLabel() {
+        print("Abilities tapped")
+    }
+    
+    func didTapStatsLabel() {
         router?.routeToStatsScreen()
+    }
+    
+    func didTapGamesLabel() {
+        print("Games tapped")
     }
 }

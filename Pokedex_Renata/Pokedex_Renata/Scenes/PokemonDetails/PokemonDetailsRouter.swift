@@ -26,6 +26,7 @@ class PokemonDetailsRouter: PokemonDetailsDataPassing, PokemonDetailsRoutingLogi
     }
     
     func routeToStatsScreen() {
-        print("routing to stats screen")
+        let vc = PokemonStatsFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        viewController?.present(vc, animated: true)
     }
 }

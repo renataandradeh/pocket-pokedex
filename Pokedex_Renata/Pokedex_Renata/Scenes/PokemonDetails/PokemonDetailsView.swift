@@ -11,7 +11,9 @@ import SnapKit
 import SDWebImage
 
 protocol PokemonDetailsViewDelegate: AnyObject {
-    func didTapStatsButton()
+    func didTapStatsLabel()
+    func didTapAbilitiesLabel()
+    func didTapGamesLabel()
 }
 
 class PokemonDetailsView: UIView {
@@ -128,7 +130,7 @@ class PokemonDetailsView: UIView {
         stack.axis = .vertical
         stack.alignment = .top
         stack.distribution = .fillProportionally
-        stack.spacing = 16
+        stack.spacing = 32
         return stack
     }()
     
@@ -177,29 +179,59 @@ class PokemonDetailsView: UIView {
         return label
     }()
     
-    private lazy var footerButtonsHStackView: UIStackView = {
+    private lazy var footerCircleLabelsHStackView: UIStackView = {
         let stack = UIStackView()
         stack.alignment = .center
-        stack.spacing = 8
+        stack.distribution = .fillEqually
+        stack.spacing = 16
         return stack
     }()
     
+    private lazy var abilitiesLabel: PaddingLabel = {
+        let label = makeCirclePaddingLabel(withTitle: "abilities")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doAbilitiesLabelAction))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+    
+    @objc func doAbilitiesLabelAction() {
+        delegate?.didTapAbilitiesLabel()
+    }
+    
     private lazy var statsLabel: PaddingLabel = {
-        let label = PaddingLabel(withInsets: 16, 16, 8, 8)
-        label.addShadow(backgroundColor: .white, cornerRadius: 27, shadowColor: .gray)
-        label.layer.masksToBounds = true
-        label.font = UIFont.itemTitleBold
-        label.textColor = .gray
-        label.text = "stats"
-        label.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target:self, action: #selector(doStatsButtonAction))
+        let label = makeCirclePaddingLabel(withTitle: "stats")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doStatsLabelAction))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
 
-    @objc func doStatsButtonAction() {
-        delegate?.didTapStatsButton()
+    @objc func doStatsLabelAction() {
+        delegate?.didTapStatsLabel()
     }
+    
+    private lazy var gamesLabel: PaddingLabel = {
+        let label = makeCirclePaddingLabel(withTitle: "games")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doGamesLabelAction))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+
+    @objc func doGamesLabelAction() {
+        delegate?.didTapGamesLabel()
+    }
+    
+    private func makeCirclePaddingLabel(withTitle title: String) -> PaddingLabel {
+        let label = PaddingLabel(withInsets: 16, 16, 8, 8)
+        label.addShadow(backgroundColor: .white, cornerRadius: 10, shadowColor: .gray)
+        label.layer.masksToBounds = true
+        label.font = UIFont.itemTitleBold
+        label.textColor = .gray
+        label.text = title
+        label.isUserInteractionEnabled = true
+        label.textAlignment = .center
+        return label
+    }
+    
 }
 
 //  MARK: - ViewCode
@@ -224,8 +256,10 @@ extension PokemonDetailsView: ViewCode {
         heightWeightView.addSubview(weightValueLabel)
         heightWeightView.addSubview(heightTitleLabel)
         heightWeightView.addSubview(weightTitleLabel)
-        footerVStackView.addArrangedSubview(footerButtonsHStackView)
-        footerButtonsHStackView.addArrangedSubview(statsLabel)
+        footerVStackView.addArrangedSubview(footerCircleLabelsHStackView)
+        footerCircleLabelsHStackView.addArrangedSubview(abilitiesLabel)
+        footerCircleLabelsHStackView.addArrangedSubview(statsLabel)
+        footerCircleLabelsHStackView.addArrangedSubview(gamesLabel)
     }
     
     func setupConstraints() {
@@ -248,11 +282,11 @@ extension PokemonDetailsView: ViewCode {
             make.centerY.equalTo(frame.height / 3)
         }
         footerVStackView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(8)
+            make.left.right.equalToSuperview().inset(40)
             make.center.equalToSuperview()
         }
         heightWeightView.snp.makeConstraints { make in
-            make.width.equalTo(pokemonImageView.snp.width)
+            make.width.equalToSuperview()
             make.centerX.equalTo(pokemonImageView.snp.centerX)
         }
         heightValueLabel.snp.makeConstraints { make in
@@ -272,6 +306,9 @@ extension PokemonDetailsView: ViewCode {
             make.centerX.equalTo(weightValueLabel.snp.centerX)
             make.centerY.equalTo(heightTitleLabel)
             make.bottom.equalToSuperview().inset(8)
+        }
+        footerCircleLabelsHStackView.snp.makeConstraints { make in
+            make.left.right.equalTo(heightWeightView)
         }
     }
 

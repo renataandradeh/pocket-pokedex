@@ -9,7 +9,6 @@
 import UIKit
 
 protocol PokemonStatsRoutingLogic {
-
 }
 
 protocol PokemonStatsDataPassing {
@@ -23,8 +22,5 @@ class PokemonStatsRouter: PokemonStatsDataPassing, PokemonStatsRoutingLogic {
     init(dataStore: PokemonStatsDataStore?, viewController: PokemonStatsViewController) {
         self.dataStore = dataStore
         self.viewController = viewController
-    }
-    
-    func routeToStatsScreen() {
     }
 }

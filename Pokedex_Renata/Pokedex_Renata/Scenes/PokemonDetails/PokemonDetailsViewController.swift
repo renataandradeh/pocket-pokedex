@@ -35,7 +35,7 @@ class PokemonDetailsViewController: UIViewController {
 
 extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
     func didTapAbilitiesLabel() {
-        print("Abilities tapped")
+        router?.routeToAbilitiesScreen()
     }
     
     func didTapStatsLabel() {
@@ -43,6 +43,6 @@ extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
     }
     
     func didTapGamesLabel() {
-        print("Games tapped")
+        router?.routeToGamesScreen()
     }
 }

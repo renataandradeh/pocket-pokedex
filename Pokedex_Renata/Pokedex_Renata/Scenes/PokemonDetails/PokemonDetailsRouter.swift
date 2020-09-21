@@ -10,6 +10,8 @@ import UIKit
 
 protocol PokemonDetailsRoutingLogic {
     func routeToStatsScreen()
+    func routeToAbilitiesScreen()
+    func routeToGamesScreen()
 }
 
 protocol PokemonDetailsDataPassing {
@@ -27,6 +29,16 @@ class PokemonDetailsRouter: PokemonDetailsDataPassing, PokemonDetailsRoutingLogi
     
     func routeToStatsScreen() {
         let vc = PokemonStatsFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        viewController?.present(vc, animated: true)
+    }
+    
+    func routeToAbilitiesScreen() {
+        let vc = PokemonAbilitiesFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        viewController?.present(vc, animated: true)
+    }
+    
+    func routeToGamesScreen() {
+        let vc = PokemonGamesFactory.makeController(currentPokemon: dataStore?.currentPokemon)
         viewController?.present(vc, animated: true)
     }
 }

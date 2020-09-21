@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)
-        let controller = PokedexTaBarController()
+        let controller = PokedexFactory.makeController()
         let navigationController = configureNavigation(withController: controller)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

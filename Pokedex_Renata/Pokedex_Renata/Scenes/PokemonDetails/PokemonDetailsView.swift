@@ -154,7 +154,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var heightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubTitleBold
+        label.font = UIFont.pageSubtitleBold
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.height ?? 0) m"
         label.sizeToFit()
@@ -163,7 +163,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubTitleBold
+        label.font = UIFont.pageSubtitleBold
         label.textColor = .gray
         label.text = "\(viewModel?.pokemon?.weight ?? 0) kg"
         label.sizeToFit()

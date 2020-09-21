@@ -29,15 +29,6 @@ class PokedexTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var contentStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.alignment = .center
-        stack.distribution = .equalCentering
-        stack.spacing = 24
-        return stack
-    }()
-    
     lazy var pokemonImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.whisperColor
@@ -45,18 +36,18 @@ class PokedexTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.pageSubTitle
-        label.textColor = .white
+    lazy var nameLabel: PaddingLabel = {
+        let label = PaddingLabel(withInsets: 8, 8, 24, 8)
+        label.font = UIFont.itemTitle
+        label.textColor = .black
         return label
     }()
     
     private lazy var chevronLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.pageSubTitle
-        label.text = ">"
-        label.textColor = .gray
+        label.font = UIFont.pageTitle
+        label.text = String.Icon.chevronRight
+        label.textColor = .black
         return label
     }()
 }
@@ -64,9 +55,8 @@ class PokedexTableViewCell: UITableViewCell {
 extension PokedexTableViewCell: ViewCode {
     func buildViewHierarchy() {
         contentView.addSubview(roundedView)
-        roundedView.addSubview(contentStackView)
-        contentStackView.addArrangedSubview(pokemonImageView)
-        contentStackView.addArrangedSubview(nameLabel)
+        roundedView.addSubview(nameLabel)
+        roundedView.addSubview(pokemonImageView)
         roundedView.addSubview(chevronLabel)
     }
     
@@ -74,23 +64,26 @@ extension PokedexTableViewCell: ViewCode {
         roundedView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(8)
         }
-        contentStackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.left.equalToSuperview().inset(24)
-        }
         pokemonImageView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.left.equalToSuperview().inset(16)
             make.width.height.equalTo(88)
         }
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(pokemonImageView.snp.centerY)
+            make.left.equalTo(pokemonImageView.snp.right).offset(-16)
+            make.right.equalTo(chevronLabel.snp.left).offset(32)
+        }
         chevronLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.right.equalToSuperview().inset(24)
-            make.left.greaterThanOrEqualTo(contentStackView).inset(16)
+            make.centerY.equalTo(pokemonImageView.snp.centerY)
+            make.right.equalToSuperview().inset(16)
         }
     }
     
     func additionalConfigurations() {
         selectionStyle = .none
+        nameLabel.layer.cornerRadius = 10
+        nameLabel.layer.masksToBounds = true
         pokemonImageView.layer.cornerRadius = 44
-        chevronLabel.backgroundColor = .red
     }
 }

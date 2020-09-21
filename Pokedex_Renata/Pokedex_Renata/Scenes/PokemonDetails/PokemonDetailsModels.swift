@@ -6,7 +6,7 @@
 //  Copyright © 2020 Renata Gondim Andrade. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum PokemonDetailsModels {
     enum DisplayPokemonDetails {
@@ -18,6 +18,19 @@ enum PokemonDetailsModels {
         
         struct ViewModel {
             let pokemon: Pokemon?
+        }
+    }
+    
+    enum DisplayAddedToFavorites {
+        struct Request {
+        }
+        
+        struct Response: Model {
+            let wasAdded: Bool
+        }
+        
+        struct ViewModel {
+            let alert: UIAlertController
         }
     }
 }

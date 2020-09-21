@@ -29,7 +29,7 @@ enum PokemonListWorkerResult {
 }
 
 
-protocol PokedexAPIClient {
+protocol PokedexWorkLogic {
     func fetchPokedex(nextPageURL: URL?, completion: @escaping (PokedexWorkerResult) -> Void)
     func fetchPokemon(url: URL?, completion: @escaping (PokemonWorkerResult) -> Void)
     func fetchPokemonList(nextPageURL: URL?, completion: @escaping (PokemonListWorkerResult) -> Void)
@@ -50,8 +50,8 @@ class PokedexWorker: Networking {
     }
 }
 
-//  MARK: - PokedexAPIClient
-extension PokedexWorker: PokedexAPIClient {
+//  MARK: - PokedexWorkLogic
+extension PokedexWorker: PokedexWorkLogic {
     func fetchPokedex(nextPageURL: URL?, completion: @escaping (PokedexWorkerResult) -> Void) {
         let url = nextPageURL ?? URLBuilder.make(withEndpoint: .fetchPokemonReferenceList)
         session.dataTask(with: makeRequest(withURL: url, method: .get)) { (data, response, error) in

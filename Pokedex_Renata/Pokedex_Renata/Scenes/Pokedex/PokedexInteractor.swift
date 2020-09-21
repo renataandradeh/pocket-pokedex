@@ -22,14 +22,14 @@ protocol PokedexDataStore {
 
 class PokedexInteractor: PokedexDataStore {
     private var presenter: PokedexPresentationLogic?
-    private var worker: PokedexAPIClient?
+    private var worker: PokedexWorkLogic?
     
     var nextPage: URL?
     var pokemons: [Pokemon]?
     var currentPokemon: Pokemon?
     var isFetchInProgress: Bool
     
-    init(presenter: PokedexPresentationLogic, worker: PokedexAPIClient) {
+    init(presenter: PokedexPresentationLogic, worker: PokedexWorkLogic) {
         self.presenter = presenter
         self.worker = worker
         self.pokemons = []

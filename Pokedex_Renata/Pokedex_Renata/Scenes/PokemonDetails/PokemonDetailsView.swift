@@ -11,9 +11,11 @@ import SnapKit
 import SDWebImage
 
 protocol PokemonDetailsViewDelegate: AnyObject {
-    func didTapStatsLabel()
-    func didTapAbilitiesLabel()
-    func didTapGamesLabel()
+    func didTapStats()
+    func didTapAbilities()
+    func didTapGames()
+    func didTapAddToFavorites()
+    func didCreateTabBar(item: UIBarButtonItem)
 }
 
 class PokemonDetailsView: UIView {
@@ -189,35 +191,35 @@ class PokemonDetailsView: UIView {
     
     private lazy var abilitiesLabel: PaddingLabel = {
         let label = makeCirclePaddingLabel(withTitle: "abilities")
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doAbilitiesLabelAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
-    @objc func doAbilitiesLabelAction() {
-        delegate?.didTapAbilitiesLabel()
+    @objc func abilitiesTapped() {
+        delegate?.didTapAbilities()
     }
     
     private lazy var statsLabel: PaddingLabel = {
         let label = makeCirclePaddingLabel(withTitle: "stats")
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doStatsLabelAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
 
-    @objc func doStatsLabelAction() {
-        delegate?.didTapStatsLabel()
+    @objc func statsTapped() {
+        delegate?.didTapStats()
     }
     
     private lazy var gamesLabel: PaddingLabel = {
         let label = makeCirclePaddingLabel(withTitle: "games")
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doGamesLabelAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gamesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
 
-    @objc func doGamesLabelAction() {
-        delegate?.didTapGamesLabel()
+    @objc func gamesTapped() {
+        delegate?.didTapGames()
     }
     
     private func makeCirclePaddingLabel(withTitle title: String) -> PaddingLabel {
@@ -232,6 +234,19 @@ class PokemonDetailsView: UIView {
         return label
     }
     
+    private func makeAddToFavoritesBarButtonItem() {
+        let item = UIBarButtonItem(
+            title: "like",
+            style: .plain,
+            target: self,
+            action: #selector(addTofavoritesTapped)
+        )
+        delegate?.didCreateTabBar(item: item)
+    }
+    
+    @objc func addTofavoritesTapped() {
+        delegate?.didTapAddToFavorites()
+    }
 }
 
 //  MARK: - ViewCode
@@ -316,5 +331,6 @@ extension PokemonDetailsView: ViewCode {
         backgroundColor = .white
         pokemonImageView.layer.cornerRadius = frame.height / 6
         footerView.backgroundColor = tagsCollection.randomElement()?.backgroundColor
+        makeAddToFavoritesBarButtonItem()
     }
 }

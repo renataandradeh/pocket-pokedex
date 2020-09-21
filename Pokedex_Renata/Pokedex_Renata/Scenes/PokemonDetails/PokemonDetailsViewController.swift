@@ -8,22 +8,14 @@
 
 import UIKit
 
+protocol PokemonDetailsDisplayLogic: AnyObject {
+    func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel)
+}
+
 class PokemonDetailsViewController: UIViewController {
     var currentPokemon: Pokemon?
     private var interactor: PokemonDetailsBusinessLogic?
     private var router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
-
-    func setup(currentPokemon: Pokemon) {
-        self.currentPokemon = currentPokemon
-    }
-    
-    func setup(
-        interactor: PokemonDetailsBusinessLogic,
-        router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
-    ) {
-        self.interactor = interactor
-        self.router = router
-    }
     
     override func loadView() {
         view = PokemonDetailsView(
@@ -31,18 +23,42 @@ class PokemonDetailsViewController: UIViewController {
             viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: router?.dataStore?.currentPokemon)
         )
     }
+
+    func setup(
+        interactor: PokemonDetailsBusinessLogic,
+        router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
+    ) {
+        self.interactor = interactor
+        self.router = router
+    }
 }
 
+//  MARK: - PokemonDetailsDisplayLogic
+extension PokemonDetailsViewController: PokemonDetailsDisplayLogic {
+    func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel) {
+        present(viewModel.alert, animated: true)
+    }
+}
+
+//  MARK: - PokemonDetailsViewDelegate
 extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
-    func didTapAbilitiesLabel() {
+    func didTapAbilities() {
         router?.routeToAbilitiesScreen()
     }
     
-    func didTapStatsLabel() {
+    func didTapStats() {
         router?.routeToStatsScreen()
     }
     
-    func didTapGamesLabel() {
+    func didTapGames() {
         router?.routeToGamesScreen()
+    }
+    
+    func didTapAddToFavorites() {
+        interactor?.favoritePokemon()
+    }
+    
+    func didCreateTabBar(item: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = item
     }
 }

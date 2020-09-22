@@ -17,7 +17,7 @@ protocol PokedexViewDelegate: AnyObject {
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
-    private var pokemons: [PokemonItem] = []
+    private var pokemons: [PokemonCell] = []
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -42,7 +42,7 @@ class PokedexView: UIView {
     }()
     
     func update(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        pokemons.append(contentsOf: viewModel.pokemons)
+        pokemons.append(contentsOf: viewModel.pokemonCells)
         tableView.reloadData()
     }
 }
@@ -75,10 +75,10 @@ extension PokedexView: UITableViewDataSource {
         let pokemon = pokemons[indexPath.row]
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        cell.pokemonImageView.sd_setImage(with: pokemon.url)
-        cell.roundedView.backgroundColor = pokemon.itemColor
-        cell.pokemonImageView.backgroundColor = pokemon.itemColor.lighter(by: 25)
-        cell.nameLabel.backgroundColor = pokemon.itemColor.lighter(by: 25)
+        cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.imageURL))
+        cell.roundedView.backgroundColor = pokemon.cellColor
+        cell.pokemonImageView.backgroundColor = pokemon.cellColor.lighter(by: 25)
+        cell.nameLabel.backgroundColor = pokemon.cellColor.lighter(by: 25)
         return cell
     }
     

@@ -338,7 +338,6 @@
 		12A8C42F250EA7BF00BC4217 /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
-				12825A1C250C151700EC915D /* PokedexWorker.swift */,
 				12BF7AC8250D9C870017BABC /* PokedexView.swift */,
 				128259FE250C059400EC915D /* PokedexViewController.swift */,
 				12A8C430250EA85A00BC4217 /* PokedexInteractor.swift */,
@@ -369,6 +368,7 @@
 		12BF7AB7250CFD9F0017BABC /* Worker */ = {
 			isa = PBXGroup;
 			children = (
+				12825A1C250C151700EC915D /* PokedexWorker.swift */,
 				1254A7C7250EFBFF0022DDC9 /* URLBuilder.swift */,
 				12825A22250C168F00EC915D /* Models */,
 				12BF7AB3250CFD360017BABC /* Protocol */,

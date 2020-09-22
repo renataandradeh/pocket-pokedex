@@ -9,7 +9,6 @@
 import UIKit
 
 class TagLabel: PaddingLabel {
-    
     init(title: String) {
         super.init(withInsets: 4, 4, 12, 12)
         text = title

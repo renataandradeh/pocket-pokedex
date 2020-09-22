@@ -8,11 +8,10 @@
 
 import UIKit
 
-struct PokemonItem {
+struct PokemonCell {
     let name: String
-    let url: URL
-    let tags: [TagLabel]
-    let itemColor: UIColor
+    let imageURL: String
+    let cellColor: UIColor
 }
 
 enum PokedexModels {
@@ -25,7 +24,7 @@ enum PokedexModels {
         }
         
         struct ViewModel {
-            let pokemons: [PokemonItem]
+            let pokemonCells: [PokemonCell]
         }
     }
 }

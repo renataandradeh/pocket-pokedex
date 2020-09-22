@@ -37,7 +37,7 @@ class PokemonDetailsWorker: Networking {
 //  MARK: - PokemonDetailsWorkLogic
 extension PokemonDetailsWorker: PokemonDetailsWorkLogic {
     func likePokemon(completion: @escaping (PokemonDetailsWorkerResult) -> Void) {
-        let url = URL(string: "https://webhook.site/1babfbcc-e206-4c8c-8b9f-3316f86aad13")!
+        let url = URLBuilder.make(withEndpoint: .favoritePokemon)
         session.dataTask(with: makeRequest(withURL: url, method: .post)) { (data, response, error) in
             guard let _ = data, error == nil else {
                 if let _ = error {

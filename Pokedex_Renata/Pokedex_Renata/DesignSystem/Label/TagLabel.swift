@@ -37,31 +37,39 @@ class TagLabel: PaddingLabel {
     private func getTagColor() -> UIColor {
         switch text {
         case "bug":
-            return UIColor.bugGreen
+            return .bugGreen
         case "poison":
-            return UIColor.poisonPurple
+            return .poisonPurple
         case "flying":
-            return UIColor.flyingBlue
+            return .flyingBlue
         case "ground":
-            return UIColor.groundYellow
+            return .groundYellow
         case "electric":
-            return UIColor.electricYellow
+            return .electricYellow
         case "fire":
-            return UIColor.fireOrange
+            return .fireOrange
         case "fairy":
-            return UIColor.fairyPink
+            return .fairyPink
         case "water":
-            return UIColor.waterBlue
+            return .waterBlue
         case "grass":
-            return UIColor.grassGreen
+            return .grassGreen
         case "normal":
-            return UIColor.normalRose
+            return .normalYellow
         case "psychic":
-            return UIColor.psychicPurple
+            return .psychicPurple
         case "fighting":
-            return UIColor.fightingRed
+            return .fightingRed
         case "ghost":
-            return UIColor.ghostPurple
+            return .ghostPurple
+        case "ice":
+            return .iceBlue
+        case "dark":
+            return .darkBrown
+        case "dragon":
+            return .dragonPurple
+        case "steel":
+            return .steelSilver
         default:
             return .gray
         }

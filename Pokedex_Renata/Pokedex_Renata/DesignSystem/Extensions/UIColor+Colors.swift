@@ -19,10 +19,14 @@ extension UIColor {
     static let fairyPink = UIColor(hex: "#AF76B3ff")!
     static let waterBlue = UIColor(hex: "#006EF6ff")!
     static let grassGreen = UIColor(hex: "#4E7E42ff")!
-    static let normalRose = UIColor(hex: "#F1BCBDFF")!
+    static let normalYellow = UIColor(hex: "#A8A77Aff")!
     static let psychicPurple = UIColor(hex: "#9D66E8ff")!
     static let fightingRed = UIColor(hex: "#A81008ff")!
     static let ghostPurple = UIColor(hex: "#E8D3FFff")!
+    static let iceBlue = UIColor(hex: "#96D9D6ff")!
+    static let darkBrown = UIColor(hex: "#705746ff")!
+    static let dragonPurple = UIColor(hex: "#6F35FCff")!
+    static let steelSilver = UIColor(hex: "#B7B7CEff")!
 }
 
 //  MARK: - Hex

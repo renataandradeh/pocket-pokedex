@@ -25,6 +25,7 @@ class PokemonDetailsPresenter {
 extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
     func presentPokemonDetails(response: PokemonDetailsModels.DisplayPokemonDetails.Response) {
         guard let currentPokemon = response.currentPokemon else { return }
+        let tags = makeTags(for: currentPokemon.types)
         viewController?.displayPokemonDetails(viewModel:
             .init(
                 id: "\(currentPokemon.id)",
@@ -32,7 +33,8 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
                 height: "\(currentPokemon.height)",
                 weight: "\(currentPokemon.weight)",
                 imageUrl: currentPokemon.sprites.other?.officialArtwork.frontDefault ?? "",
-                tags: makeTags(for: currentPokemon.types)
+                tags: tags,
+                gradientColors: getColors(for: tags)
             )
         )
     }
@@ -46,7 +48,7 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
     }
 }
 
-//  MARK: - Factory
+//  MARK: - Helpers
 extension PokemonDetailsPresenter {
     private func makeTags(for types: [TypeElement]) -> [TagLabel] {
         var tags: [TagLabel] = []
@@ -55,4 +57,14 @@ extension PokemonDetailsPresenter {
         }
         return tags
     }
+    
+    private func getColors(for tags: [TagLabel]) -> [UIColor] {
+        var colors: [UIColor] = []
+        for tag in tags {
+            colors.append(tag.backgroundColor ?? .white)
+        }
+        return colors
+    }
 }
+
+

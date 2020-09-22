@@ -24,6 +24,7 @@ enum PokemonDetailsModels {
             let weight: String
             let imageUrl: String
             let tags: [TagLabel]
+            let gradientColors: [UIColor]
         }
     }
     

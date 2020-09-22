@@ -40,7 +40,7 @@ class PokemonDetailsView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         guard let viewModel = viewModel else { return }
-        footerView.applyGradient(colors: getColors(for: viewModel.tags))
+        footerView.applyGradient(colors: viewModel.gradientColors)
     }
     
     func update(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel) {
@@ -351,17 +351,6 @@ extension PokemonDetailsView: ViewCode {
         backgroundColor = .white
         pokemonImageView.layer.cornerRadius = frame.height / 6
         makeAddToFavoritesBarButtonItem()
-    }
-}
-
-//  MARK - Helper
-extension PokemonDetailsView {
-    private func getColors(for tags: [TagLabel]) -> [UIColor] {
-        var colors: [UIColor] = []
-        for tag in tags {
-            colors.append(tag.backgroundColor ?? .white)
-        }
-        return colors
     }
 }
 

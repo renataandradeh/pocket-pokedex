@@ -14,10 +14,16 @@ enum PokemonDetailsModels {
         }
         
         struct Response: Model {
+            let currentPokemon: Pokemon?
         }
         
         struct ViewModel {
-            let pokemon: Pokemon?
+            let id: String
+            let name: String
+            let height: String
+            let weight: String
+            let imageUrl: String
+            let tags: [TagLabel]
         }
     }
     

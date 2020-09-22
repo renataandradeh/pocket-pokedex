@@ -9,21 +9,23 @@
 import UIKit
 
 protocol PokemonDetailsDisplayLogic: AnyObject {
+    func displayPokemonDetails(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel)
     func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel)
 }
 
 class PokemonDetailsViewController: UIViewController {
-    var currentPokemon: Pokemon?
     private var interactor: PokemonDetailsBusinessLogic?
     private var router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
     
     override func loadView() {
-        view = PokemonDetailsView(
-            delegate: self,
-            viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel(pokemon: router?.dataStore?.currentPokemon)
-        )
+        view = PokemonDetailsView(delegate: self)
     }
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactor?.fetchCurrentPokemonDetails()
+    }
+    
     func setup(
         interactor: PokemonDetailsBusinessLogic,
         router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?
@@ -35,6 +37,11 @@ class PokemonDetailsViewController: UIViewController {
 
 //  MARK: - PokemonDetailsDisplayLogic
 extension PokemonDetailsViewController: PokemonDetailsDisplayLogic {
+    func displayPokemonDetails(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel) {
+        guard let view = view as? PokemonDetailsView else { return }
+        view.update(viewModel: viewModel)
+    }
+    
     func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel) {
         present(viewModel.alert, animated: true)
     }

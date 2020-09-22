@@ -1,5 +1,5 @@
 //
-//  PokemonStatTableViewCell.swift
+//  PokemonInfoCell.swift
 //  Pokedex_Renata
 //
 //  Created by Renata Andrade on 20/09/20.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class PokemonStatTableViewCell: UITableViewCell {
+class PokemonInfoCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -30,7 +30,7 @@ class PokemonStatTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var baseStatLabel: PaddingLabel = {
+    lazy var valueLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
         label.font = UIFont.itemTitleBold
         label.textColor = .gray
@@ -38,17 +38,17 @@ class PokemonStatTableViewCell: UITableViewCell {
     }()
 }
 
-extension PokemonStatTableViewCell: ViewCode {
+extension PokemonInfoCell: ViewCode {
     func buildViewHierarchy() {
         contentView.addSubview(nameLabel)
-        contentView.addSubview(baseStatLabel)
+        contentView.addSubview(valueLabel)
     }
     
     func setupConstraints() {
         nameLabel.snp.makeConstraints { make in
             make.bottom.left.top.equalToSuperview().offset(8)
         }
-        baseStatLabel.snp.makeConstraints { make in
+        valueLabel.snp.makeConstraints { make in
             make.centerY.equalTo(nameLabel.snp.centerY)
             make.right.equalToSuperview().inset(16)
         }

@@ -9,8 +9,8 @@
 import Foundation
 
 protocol PokemonDetailsBusinessLogic {
+    func fetchCurrentPokemonDetails()
     func favoritePokemon()
-    func addToFavorites()
 }
 
 protocol PokemonDetailsDataStore {
@@ -29,6 +29,10 @@ class PokemonDetailsInteractor: PokemonDetailsDataStore {
 }
 
 extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
+    func fetchCurrentPokemonDetails() {
+        presenter?.presentPokemonDetails(response: .init(currentPokemon: currentPokemon))
+    }
+    
     func favoritePokemon() {
         worker?.likePokemon(completion: { [weak self] result in
             guard let self = self else { return }
@@ -42,7 +46,7 @@ extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
         })
     }
     
-    func addToFavorites() {
+    private func addToFavorites() {
         guard let worker = worker, let currentPokemon = currentPokemon else { return }
         let addedToFavorites = worker.addToFavorites(pokemon: currentPokemon)
         presenter?.presentAddedToFavorites(response: .init(wasAdded: addedToFavorites))

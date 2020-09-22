@@ -22,14 +22,14 @@ class PokemonDetailsView: UIView {
     private var viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel?
     private weak var delegate: PokemonDetailsViewDelegate?
     
+    //  MARK: - Lifecycle
     init(
         delegate: PokemonDetailsViewDelegate,
-        viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel?
+        viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel? = nil
     ) {
         super.init(frame: UIScreen.main.bounds)
         self.viewModel = viewModel
         self.delegate = delegate
-        setupView()
     }
     
     @available(*, unavailable)
@@ -39,9 +39,16 @@ class PokemonDetailsView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        footerView.applyGradient(colors: getColors(for: tagsCollection))
+        guard let viewModel = viewModel else { return }
+        footerView.applyGradient(colors: getColors(for: viewModel.tags))
+    }
+    
+    func update(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel) {
+        self.viewModel = viewModel
+        setupView()
     }
 
+    //  MARK: - Views
     private lazy var contentStackView: UIStackView = {
         let stack = UIStackView(
             frame: CGRect(
@@ -64,9 +71,9 @@ class PokemonDetailsView: UIView {
             shadowOffset: CGSize(width: 0, height: -1)
         )
         imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-        imageView.sd_setImage(
-            with: URL(string:viewModel?.pokemon?.sprites.other?.officialArtwork.frontDefault ?? "")
-        )
+        if let viewModel = viewModel {
+            imageView.sd_setImage(with: URL(string: viewModel.imageUrl))
+        }
         return imageView
     }()
     
@@ -95,9 +102,9 @@ class PokemonDetailsView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageTitle
+        label.font = UIFont.pageTitleBold
         label.textColor = .gray
-        label.text = viewModel?.pokemon?.name
+        label.text = viewModel?.name
         return label
     }()
     
@@ -105,7 +112,7 @@ class PokemonDetailsView: UIView {
         let label = UILabel()
         label.font = UIFont.itemTitleBold
         label.textColor = .gray
-        label.text = "#\(viewModel?.pokemon?.id ?? 00)"
+        label.text = "#\(viewModel?.id ?? "00")"
         return label
     }()
     
@@ -115,20 +122,6 @@ class PokemonDetailsView: UIView {
         stack.spacing = 8
         return stack
     }()
-    
-    private lazy var tagsCollection: [TagLabel] = {
-        let tags: [TagLabel] = []
-        return makeTagCollection() ?? tags
-    }()
-    
-    private func makeTagCollection() -> [TagLabel]? {
-        guard let viewModel = viewModel, let pokemon = viewModel.pokemon else { return nil }
-        var tags: [TagLabel] = []
-        for type in pokemon.types {
-            tags.append(TagLabel(title: type.type.name))
-        }
-        return tags
-    }
     
     private lazy var footerView: UIView = {
         let view = UIView()
@@ -156,7 +149,7 @@ class PokemonDetailsView: UIView {
         let label = UILabel()
         label.font = UIFont.pageSubtitleBold
         label.textColor = .gray
-        label.text = "\(viewModel?.pokemon?.height ?? 0) m"
+        label.text = "\(viewModel?.height ?? "0") m"
         label.sizeToFit()
         return label
     }()
@@ -165,7 +158,7 @@ class PokemonDetailsView: UIView {
         let label = UILabel()
         label.font = UIFont.pageSubtitleBold
         label.textColor = .gray
-        label.text = "\(viewModel?.pokemon?.weight ?? 0) kg"
+        label.text = "\(viewModel?.weight ?? "0") kg"
         label.sizeToFit()
         return label
     }()
@@ -186,7 +179,7 @@ class PokemonDetailsView: UIView {
         return label
     }()
     
-    private lazy var footerCircleLabelsHStackView: UIStackView = {
+    private lazy var footerRoundedLabelsHStackView: UIStackView = {
         let stack = UIStackView()
         stack.alignment = .center
         stack.distribution = .fillEqually
@@ -195,7 +188,7 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var abilitiesLabel: PaddingLabel = {
-        let label = makeCirclePaddingLabel(withTitle: "abilities")
+        let label = makeRoundedPaddingLabel(withTitle: "abilities")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -206,7 +199,7 @@ class PokemonDetailsView: UIView {
     }
     
     private lazy var statsLabel: PaddingLabel = {
-        let label = makeCirclePaddingLabel(withTitle: "stats")
+        let label = makeRoundedPaddingLabel(withTitle: "stats")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -217,7 +210,7 @@ class PokemonDetailsView: UIView {
     }
     
     private lazy var gamesLabel: PaddingLabel = {
-        let label = makeCirclePaddingLabel(withTitle: "games")
+        let label = makeRoundedPaddingLabel(withTitle: "games")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gamesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -227,7 +220,7 @@ class PokemonDetailsView: UIView {
         delegate?.didTapGames()
     }
     
-    private func makeCirclePaddingLabel(withTitle title: String) -> PaddingLabel {
+    private func makeRoundedPaddingLabel(withTitle title: String) -> PaddingLabel {
         let label = PaddingLabel(withInsets: 16, 16, 8, 8)
         label.addShadow(
             backgroundColor: .white,
@@ -246,24 +239,18 @@ class PokemonDetailsView: UIView {
     
     private func makeAddToFavoritesBarButtonItem() {
         let item = UIBarButtonItem(
-            title: "like",
+            title: String.Icon.emptyHeart,
             style: .plain,
             target: self,
             action: #selector(addTofavoritesTapped)
         )
+        let font = UIFont.pageSubtitle
+        item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         delegate?.didCreateTabBar(item: item)
     }
     
     @objc func addTofavoritesTapped() {
         delegate?.didTapAddToFavorites()
-    }
-    
-    private func getColors(for tags: [TagLabel]) -> [UIColor] {
-        var colors: [UIColor] = []
-        for tag in tags {
-            colors.append(tag.backgroundColor ?? .white)
-        }
-        return colors
     }
 }
 
@@ -271,28 +258,43 @@ class PokemonDetailsView: UIView {
 extension PokemonDetailsView: ViewCode {
     func buildViewHierarchy() {
         addSubview(contentStackView)
+        
+        //  Header
         contentStackView.addArrangedSubview(headerView)
         headerView.addSubview(headerVStackView)
+        
+        //  Title
         headerVStackView.addArrangedSubview(titleHStackView)
         titleHStackView.addArrangedSubview(nameLabel)
         titleHStackView.addArrangedSubview(idLabel)
+        
+        //  Tags
         headerVStackView.addArrangedSubview(tagsHStackView)
-        for tag in tagsCollection {
-            tagsHStackView.addArrangedSubview(tag)
+        if let viewModel = viewModel {
+            for tag in viewModel.tags {
+                tagsHStackView.addArrangedSubview(tag)
+            }
         }
-        contentStackView.addArrangedSubview(footerView)
+        
+        //  Pokemon
         addSubview(pokemonImageView)
         
+        //  Footer
+        contentStackView.addArrangedSubview(footerView)
         footerView.addSubview(footerVStackView)
+        
+        //  Pokemon's height and weight
         footerVStackView.addArrangedSubview(heightWeightView)
         heightWeightView.addSubview(heightValueLabel)
         heightWeightView.addSubview(weightValueLabel)
         heightWeightView.addSubview(heightTitleLabel)
         heightWeightView.addSubview(weightTitleLabel)
-        footerVStackView.addArrangedSubview(footerCircleLabelsHStackView)
-        footerCircleLabelsHStackView.addArrangedSubview(abilitiesLabel)
-        footerCircleLabelsHStackView.addArrangedSubview(statsLabel)
-        footerCircleLabelsHStackView.addArrangedSubview(gamesLabel)
+        
+        // Interactable labels
+        footerVStackView.addArrangedSubview(footerRoundedLabelsHStackView)
+        footerRoundedLabelsHStackView.addArrangedSubview(abilitiesLabel)
+        footerRoundedLabelsHStackView.addArrangedSubview(statsLabel)
+        footerRoundedLabelsHStackView.addArrangedSubview(gamesLabel)
     }
     
     func setupConstraints() {
@@ -340,7 +342,7 @@ extension PokemonDetailsView: ViewCode {
             make.centerY.equalTo(heightTitleLabel)
             make.bottom.equalToSuperview().inset(16)
         }
-        footerCircleLabelsHStackView.snp.makeConstraints { make in
+        footerRoundedLabelsHStackView.snp.makeConstraints { make in
             make.left.right.equalTo(heightWeightView)
         }
     }
@@ -351,3 +353,15 @@ extension PokemonDetailsView: ViewCode {
         makeAddToFavoritesBarButtonItem()
     }
 }
+
+//  MARK - Helper
+extension PokemonDetailsView {
+    private func getColors(for tags: [TagLabel]) -> [UIColor] {
+        var colors: [UIColor] = []
+        for tag in tags {
+            colors.append(tag.backgroundColor ?? .white)
+        }
+        return colors
+    }
+}
+

@@ -25,18 +25,15 @@ class PokemonStatsView: UIView {
     
     private lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 16, 16, 8, 8)
-        label.font = UIFont.pageTitle
+        label.font = UIFont.pageTitleBold
         label.textColor = .gray
         label.text = "base stats"
         return label
     }()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+    private lazy var tableView: PokemonInfoTableView = {
+        let tableView = PokemonInfoTableView()
         tableView.dataSource = self
-        tableView.register(PokemonStatTableViewCell.self, forCellReuseIdentifier: "PokemonStatCell")
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -78,10 +75,10 @@ extension PokemonStatsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonStatCell", for: indexPath) as! PokemonStatTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.tableView.cellReuseIdentifier, for: indexPath) as! PokemonInfoCell
         guard let viewModel = viewModel else { return cell }
         cell.nameLabel.text = viewModel.baseStats[indexPath.row].name
-        cell.baseStatLabel.text = "\(viewModel.baseStats[indexPath.row].baseStat)"
+        cell.valueLabel.text = "\(viewModel.baseStats[indexPath.row].baseStat)"
         return cell
     }
 }

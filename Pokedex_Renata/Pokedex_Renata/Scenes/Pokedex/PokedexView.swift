@@ -36,11 +36,12 @@ class PokedexView: UIView {
         tableView.dataSource = self
         tableView.register(PokedexTableViewCell.self, forCellReuseIdentifier: "PokedexTableViewCell")
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    func updateView(withViewModel viewModel: PokedexModels.FetchPokemonList.ViewModel) {
+    func update(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         pokemons.append(contentsOf: viewModel.pokemons)
         tableView.reloadData()
     }

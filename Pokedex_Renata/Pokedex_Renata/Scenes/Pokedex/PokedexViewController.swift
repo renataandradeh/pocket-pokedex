@@ -27,6 +27,7 @@ class PokedexViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -47,7 +48,7 @@ class PokedexViewController: UIViewController {
 extension PokedexViewController: PokedexDisplayLogic {
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         guard let pokedexView = view as? PokedexView else { return }
-        pokedexView.updateView(withViewModel: viewModel)
+        pokedexView.update(viewModel: viewModel)
     }
 }
 

@@ -25,18 +25,15 @@ class PokemonAbilitiesView: UIView {
     
     private lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 16, 16, 8, 8)
-        label.font = UIFont.pageTitle
+        label.font = UIFont.pageTitleBold
         label.textColor = .gray
         label.text = "abilities"
         return label
     }()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+    private lazy var tableView: PokemonInfoTableView = {
+        let tableView = PokemonInfoTableView()
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PokemonAbiliityCell")
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -78,8 +75,10 @@ extension PokemonAbilitiesView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonAbiliityCell", for: indexPath)
-        cell.textLabel?.text = viewModel?.abilities[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.tableView.cellReuseIdentifier, for: indexPath) as! PokemonInfoCell
+        guard let viewModel = viewModel else { return cell }
+        cell.nameLabel.text = viewModel.abilities[indexPath.row].name
+        cell.valueLabel.text = "\(viewModel.abilities[indexPath.row].slot)"
         return cell
     }
 }

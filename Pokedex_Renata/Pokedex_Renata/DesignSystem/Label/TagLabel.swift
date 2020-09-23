@@ -10,7 +10,7 @@ import UIKit
 
 class TagLabel: PaddingLabel {
     init(title: String) {
-        super.init(withInsets: 4, 4, 12, 12)
+        super.init(withInsets: 7, 7, 14, 14)
         text = title
         setupView()
     }
@@ -26,9 +26,9 @@ class TagLabel: PaddingLabel {
     }
     
     private func setupView() {
-        font = UIFont.itemTitle
+        font = .subItemTitleBold
         textColor = .white
-        layer.cornerRadius = 14
+        layer.cornerRadius = 17
         layer.masksToBounds = true
         textAlignment = .center
         backgroundColor = getTagColor()

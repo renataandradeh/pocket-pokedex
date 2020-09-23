@@ -15,5 +15,7 @@ extension UIFont {
     static let pageSubtitle = UIFont.systemFont(ofSize: 27)
     static let itemTitleBold = UIFont.boldSystemFont(ofSize: 20)
     static let itemTitle = UIFont.systemFont(ofSize: 20)
+    static let subItemTitle = UIFont.systemFont(ofSize: 16)
+    static let subItemTitleBold = UIFont.boldSystemFont(ofSize: 16)
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIColor {
     static let whisperColor = UIColor(hex: "#E8E8E8ff")!
-    static let poisonPurple = UIColor(hex: "#660675ff")!
+    static let poisonPurple = UIColor(hex: "#A33EA1ff")!
     static let bugGreen = UIColor(hex: "#98A82Fff")!
     static let flyingBlue = UIColor(hex: "#76BDFEff")!
     static let groundYellow = UIColor(hex: "#BC9746ff")!

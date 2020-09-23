@@ -102,7 +102,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageTitleBold
+        label.font = .pageTitleBold
         label.textColor = .gray
         label.text = viewModel?.name
         return label
@@ -110,7 +110,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var idLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.itemTitleBold
+        label.font = .itemTitleBold
         label.textColor = .gray
         label.text = "#\(viewModel?.id ?? "00")"
         return label
@@ -134,47 +134,55 @@ class PokemonDetailsView: UIView {
         stack.axis = .vertical
         stack.alignment = .top
         stack.distribution = .fillProportionally
-        stack.spacing = 32
+        stack.spacing = 24
         return stack
     }()
     
-    private lazy var heightWeightView: UIView = {
+    private lazy var aboutView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
+        view.backgroundColor = .clear
         return view
     }()
     
     private lazy var heightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubtitleBold
-        label.textColor = .gray
-        label.text = "\(viewModel?.height ?? "0") m"
+        label.textColor = .white
+        label.attributedText = setFontAttributeTo(
+            textPrefix: "\(viewModel?.height ?? "--")",
+            fontPrefix: .pageTitleBold,
+            textSufix: "m",
+            fontSufix: .itemTitle
+        )
         label.sizeToFit()
         return label
     }()
-    
+
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.pageSubtitleBold
-        label.textColor = .gray
-        label.text = "\(viewModel?.weight ?? "0") kg"
+        label.font = .pageSubtitleBold
+        label.textColor = .white
+        label.attributedText = setFontAttributeTo(
+            textPrefix: "\(viewModel?.weight ?? "--")",
+            fontPrefix: .pageTitleBold,
+            textSufix: "kg",
+            fontSufix: .itemTitle
+        )
         label.sizeToFit()
         return label
     }()
     
     private lazy var heightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.itemTitle
-        label.textColor = .gray
+        label.font = .subItemTitle
+        label.textColor = .white
         label.text = "height"
         return label
     }()
     
     private lazy var weightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.itemTitle
-        label.textColor = .gray
+        label.font = .subItemTitle
+        label.textColor = .white
         label.text = "weight"
         return label
     }()
@@ -194,20 +202,12 @@ class PokemonDetailsView: UIView {
         return label
     }()
     
-    @objc func abilitiesTapped() {
-        delegate?.didTapAbilities()
-    }
-    
     private lazy var statsLabel: PaddingLabel = {
         let label = makeRoundedPaddingLabel(withTitle: "stats")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
-
-    @objc func statsTapped() {
-        delegate?.didTapStats()
-    }
     
     private lazy var gamesLabel: PaddingLabel = {
         let label = makeRoundedPaddingLabel(withTitle: "games")
@@ -215,43 +215,6 @@ class PokemonDetailsView: UIView {
         label.addGestureRecognizer(tapGesture)
         return label
     }()
-
-    @objc func gamesTapped() {
-        delegate?.didTapGames()
-    }
-    
-    private func makeRoundedPaddingLabel(withTitle title: String) -> PaddingLabel {
-        let label = PaddingLabel(withInsets: 16, 16, 8, 8)
-        label.addShadow(
-            backgroundColor: .white,
-            cornerRadius: 10,
-            shadowColor: .black,
-            shadowOffset: CGSize(width: 0, height: 1.0)
-        )
-        label.layer.masksToBounds = true
-        label.font = UIFont.itemTitleBold
-        label.textColor = .gray
-        label.text = title
-        label.isUserInteractionEnabled = true
-        label.textAlignment = .center
-        return label
-    }
-    
-    private func makeAddToFavoritesBarButtonItem() {
-        let item = UIBarButtonItem(
-            title: String.Icon.emptyHeart,
-            style: .plain,
-            target: self,
-            action: #selector(addTofavoritesTapped)
-        )
-        let font = UIFont.pageSubtitle
-        item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
-        delegate?.didCreateTabBar(item: item)
-    }
-    
-    @objc func addTofavoritesTapped() {
-        delegate?.didTapAddToFavorites()
-    }
 }
 
 //  MARK: - ViewCode
@@ -284,11 +247,11 @@ extension PokemonDetailsView: ViewCode {
         footerView.addSubview(footerVStackView)
         
         //  Pokemon's height and weight
-        footerVStackView.addArrangedSubview(heightWeightView)
-        heightWeightView.addSubview(heightValueLabel)
-        heightWeightView.addSubview(weightValueLabel)
-        heightWeightView.addSubview(heightTitleLabel)
-        heightWeightView.addSubview(weightTitleLabel)
+        footerVStackView.addArrangedSubview(aboutView)
+        aboutView.addSubview(heightValueLabel)
+        aboutView.addSubview(weightValueLabel)
+        aboutView.addSubview(heightTitleLabel)
+        aboutView.addSubview(weightTitleLabel)
         
         // Interactable labels
         footerVStackView.addArrangedSubview(footerRoundedLabelsHStackView)
@@ -319,31 +282,33 @@ extension PokemonDetailsView: ViewCode {
         footerVStackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(40)
             make.center.equalToSuperview()
+            make.bottom.equalToSuperview().inset(24)
         }
-        heightWeightView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
+        aboutView.snp.makeConstraints { make in
+            make.height.equalTo(100)
+            make.top.equalTo(pokemonImageView.snp.bottom).inset(-8)
+            make.left.right.equalToSuperview().inset(32)
             make.centerX.equalTo(pokemonImageView.snp.centerX)
         }
-        heightValueLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
-            make.left.equalToSuperview().inset(32)
-        }
-        weightValueLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
-            make.right.equalToSuperview().inset(32)
-        }
         heightTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(heightValueLabel.snp.centerX)
+            make.left.equalToSuperview().inset(16)
             make.top.equalTo(heightValueLabel.snp.bottom).offset(8)
             make.bottom.equalToSuperview().inset(16)
         }
+        heightValueLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(16)
+            make.centerX.equalTo(heightTitleLabel.snp.centerX)
+        }
         weightTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(weightValueLabel.snp.centerX)
+            make.right.equalToSuperview().inset(16)
             make.centerY.equalTo(heightTitleLabel)
-            make.bottom.equalToSuperview().inset(16)
+        }
+        weightValueLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(weightTitleLabel.snp.centerX)
+            make.centerY.equalTo(heightValueLabel)
         }
         footerRoundedLabelsHStackView.snp.makeConstraints { make in
-            make.left.right.equalTo(heightWeightView)
+            make.left.right.equalToSuperview()
         }
     }
 
@@ -351,6 +316,62 @@ extension PokemonDetailsView: ViewCode {
         backgroundColor = .white
         pokemonImageView.layer.cornerRadius = frame.height / 6
         makeAddToFavoritesBarButtonItem()
+    }
+}
+
+//  MARK: - Helpers
+private extension PokemonDetailsView {
+    private func setFontAttributeTo(textPrefix: String, fontPrefix: UIFont, textSufix: String = "", fontSufix: UIFont = UIFont()) -> NSAttributedString {
+        let attrPrefix = [NSAttributedString.Key.font: fontPrefix]
+        let prefix = NSMutableAttributedString(string: textPrefix, attributes: attrPrefix)
+        let attrSufix =  [NSAttributedString.Key.font: fontSufix]
+        let sufix = NSAttributedString(string: textSufix, attributes: attrSufix)
+        prefix.append(sufix)
+        return prefix
+    }
+    
+    private func makeRoundedPaddingLabel(withTitle title: String) -> PaddingLabel {
+        let label = PaddingLabel(withInsets: 14, 14, 14, 14)
+        label.layer.cornerRadius = 24
+        label.layer.masksToBounds = true
+        label.backgroundColor = viewModel?.gradientColors.first
+        label.font = .subItemTitleBold
+        label.textColor = .white
+        label.text = title
+        label.isUserInteractionEnabled = true
+        label.textAlignment = .center
+        return label
+    }
+    
+    private func makeAddToFavoritesBarButtonItem() {
+        let item = UIBarButtonItem(
+            title: String.Icon.emptyHeart,
+            style: .plain,
+            target: self,
+            action: #selector(addTofavoritesTapped)
+        )
+        let font: UIFont = .pageSubtitle
+        item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+        delegate?.didCreateTabBar(item: item)
+    }
+}
+
+//  MARK: - #selector()
+private extension PokemonDetailsView {
+    @objc func abilitiesTapped() {
+        delegate?.didTapAbilities()
+    }
+    
+    @objc func statsTapped() {
+        delegate?.didTapStats()
+    }
+    
+    @objc func gamesTapped() {
+        delegate?.didTapGames()
+    }
+    
+    @objc func addTofavoritesTapped() {
+        delegate?.didTapAddToFavorites()
     }
 }
 

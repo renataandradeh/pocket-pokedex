@@ -31,23 +31,23 @@ class PokedexTableViewCell: UITableViewCell {
     
     lazy var pokemonImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.whisperColor
+        imageView.backgroundColor = .whisperColor
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     lazy var nameLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 24, 8)
-        label.font = UIFont.itemTitle
-        label.textColor = .black
+        label.font = .pokedexCellItem
+        label.textColor = .white
         return label
     }()
     
     private lazy var chevronLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.pageTitle
+        label.font = .pageSubtitle
         label.text = String.Icon.chevronRight
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
 }

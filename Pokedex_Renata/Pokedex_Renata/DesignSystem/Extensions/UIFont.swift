@@ -17,5 +17,7 @@ extension UIFont {
     static let itemTitle = UIFont.systemFont(ofSize: 20)
     static let subItemTitle = UIFont.systemFont(ofSize: 16)
     static let subItemTitleBold = UIFont.boldSystemFont(ofSize: 16)
+    
+    static let pokedexCellItem = UIFont.systemFont(ofSize: 22)
 }
 

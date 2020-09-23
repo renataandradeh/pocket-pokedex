@@ -76,9 +76,9 @@ extension PokedexView: UITableViewDataSource {
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.imageURL))
-        cell.roundedView.backgroundColor = pokemon.cellColor
-        cell.pokemonImageView.backgroundColor = pokemon.cellColor.lighter(by: 25)
-        cell.nameLabel.backgroundColor = pokemon.cellColor.lighter(by: 25)
+        cell.roundedView.backgroundColor = pokemon.cellColor.lighter()
+        cell.pokemonImageView.backgroundColor = pokemon.cellColor
+        cell.nameLabel.backgroundColor = pokemon.cellColor
         return cell
     }
     

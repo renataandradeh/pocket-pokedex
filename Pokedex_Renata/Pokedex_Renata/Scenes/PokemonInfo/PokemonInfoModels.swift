@@ -1,5 +1,5 @@
 //
-//  PokemonGamesModels.swift
+//  PokemonInfoModels.swift
 //  Pokedex_Renata
 //
 //  Created by Renata Andrade on 21/09/20.
@@ -8,13 +8,19 @@
 
 import Foundation
 
-enum PokemonGamesModels {
-    enum DisplayGamesVersionsNames {
+struct PokemonInfo {
+    let title: String
+    let value: Int?
+}
+
+enum PokemonInfoModels {
+    enum DisplayPokemonInfo {
         struct Response {
             let pokemon: Pokemon?
         }
         struct ViewModel {
-            let gameVersionsNames: [String]
+            let pageTitle: String
+            let infoList: [PokemonInfo]
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  PokemonAbilitiesView.swift
+//  PokemonInfoView.swift
 //  Pokedex_Renata
 //
 //  Created by Renata Andrade on 21/09/20.
@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-class PokemonAbilitiesView: UIView {
-    private var viewModel: PokemonAbilitiesModels.DisplayAbilities.ViewModel?
+class PokemonInfoView: UIView {
+    private var viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel?
     
-    init(viewModel: PokemonAbilitiesModels.DisplayAbilities.ViewModel? = nil) {
+    init(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel? = nil) {
         super.init(frame: .zero)
         self.viewModel = viewModel
         setupView()
@@ -27,7 +27,7 @@ class PokemonAbilitiesView: UIView {
         let label = PaddingLabel(withInsets: 16, 16, 8, 8)
         label.font = UIFont.pageTitleBold
         label.textColor = .gray
-        label.text = "abilities"
+        label.text = viewModel?.pageTitle
         return label
     }()
     
@@ -37,13 +37,14 @@ class PokemonAbilitiesView: UIView {
         return tableView
     }()
     
-    func update(viewModel: PokemonAbilitiesModels.DisplayAbilities.ViewModel) {
+    func update(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel) {
         self.viewModel = viewModel
+        titleLabel.text = viewModel.pageTitle
         tableView.reloadData()
     }
 }
 
-extension PokemonAbilitiesView: ViewCode {
+extension PokemonInfoView: ViewCode {
     func buildViewHierarchy() {
         addSubview(titleLabel)
         addSubview(tableView)
@@ -65,20 +66,26 @@ extension PokemonAbilitiesView: ViewCode {
 }
 
 //  MARK: - UITableViewDataSource
-extension PokemonAbilitiesView: UITableViewDataSource {
+extension PokemonInfoView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.abilities.count ?? .zero
+        return viewModel?.infoList.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.tableView.cellReuseIdentifier, for: indexPath) as! PokemonInfoCell
         guard let viewModel = viewModel else { return cell }
-        cell.nameLabel.text = viewModel.abilities[indexPath.row].name
-        cell.valueLabel.text = "\(viewModel.abilities[indexPath.row].slot)"
+        cell.nameLabel.text = viewModel.infoList[indexPath.row].title
+        
+        if let value = viewModel.infoList[indexPath.row].value {
+            cell.valueLabel.text = "\(value)"
+        }
+        
         return cell
     }
 }
+
+

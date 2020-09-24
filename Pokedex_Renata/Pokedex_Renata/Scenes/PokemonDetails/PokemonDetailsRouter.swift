@@ -28,17 +28,26 @@ class PokemonDetailsRouter: PokemonDetailsDataPassing, PokemonDetailsRoutingLogi
     }
     
     func routeToAbilitiesScreen() {
-        let vc = PokemonAbilitiesFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        let vc = PokemonInfoFactory.makeController(
+            currentPokemon: dataStore?.currentPokemon,
+            infoType: .abilities
+        )
         viewController?.present(vc, animated: true)
     }
     
     func routeToStatsScreen() {
-        let vc = PokemonStatsFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        let vc = PokemonInfoFactory.makeController(
+            currentPokemon: dataStore?.currentPokemon,
+            infoType: .stats
+        )
         viewController?.present(vc, animated: true)
     }
     
     func routeToGamesScreen() {
-        let vc = PokemonGamesFactory.makeController(currentPokemon: dataStore?.currentPokemon)
+        let vc = PokemonInfoFactory.makeController(
+            currentPokemon: dataStore?.currentPokemon,
+            infoType: .games
+        )
         viewController?.present(vc, animated: true)
     }
 }

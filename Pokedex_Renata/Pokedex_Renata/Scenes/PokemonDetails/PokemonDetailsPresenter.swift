@@ -33,7 +33,7 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
                 isFavorite: response.isFavorite,
                 height: "\(currentPokemon.height)",
                 weight: "\(currentPokemon.weight)",
-                imageUrl: currentPokemon.sprites.other?.officialArtwork.frontDefault ?? "",
+                imageUrl: currentPokemon.sprites?.other?.officialArtwork.frontDefault ?? "",
                 tags: tags,
                 gradientColors: getColors(for: tags)
             )

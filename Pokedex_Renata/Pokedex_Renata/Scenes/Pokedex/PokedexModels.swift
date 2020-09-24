@@ -16,9 +16,6 @@ struct PokemonCell {
 
 enum PokedexModels {
     enum FetchPokemonList {
-        struct Request {
-        }
-        
         struct Response: Model {
             let pokemons: [Pokemon]
         }

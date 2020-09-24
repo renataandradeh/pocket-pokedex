@@ -15,7 +15,7 @@ struct Pokemon: Model {
     let id: Int
     let name: String
     let order: Int
-    let sprites: Sprites
+    let sprites: Sprites?
     let stats: [Stat]
     let types: [TypeElement]
     let weight: Int

@@ -45,7 +45,7 @@ class PokedexWorkerTests: XCTestCase {
     
 }
 
-//  MARK: - Helper Data
+//  MARK: - Helper data
 fileprivate struct Seeds {
     struct Dummy {
         static let error: PokedexWorkerError = .unavailable

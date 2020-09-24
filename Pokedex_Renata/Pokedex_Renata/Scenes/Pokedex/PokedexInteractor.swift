@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PokedexBusinessLogic {
-    func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request)
+    func fetchPokemonList()
     func getPokemon(at index: Int) -> Pokemon?
     func setCurrent(pokemon: Pokemon)
 }
@@ -21,8 +21,8 @@ protocol PokedexDataStore {
 }
 
 class PokedexInteractor: PokedexDataStore {
-    private var presenter: PokedexPresentationLogic?
-    private var worker: PokedexWorkLogic?
+    private let presenter: PokedexPresentationLogic
+    private let worker: PokedexWorkLogic
     
     var nextPage: URL?
     var pokemons: [Pokemon]?
@@ -47,10 +47,10 @@ extension PokedexInteractor: PokedexBusinessLogic {
         currentPokemon = pokemon
     }
     
-    func fetchPokemonList(request: PokedexModels.FetchPokemonList.Request) {
+    func fetchPokemonList() {
         guard !isFetchInProgress else { return }
         isFetchInProgress = true
-        worker?.fetchPokemonList(nextPageURL: nextPage, completion: { [weak self] result in
+        worker.fetchPokemonList(nextPageURL: nextPage, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
@@ -60,7 +60,7 @@ extension PokedexInteractor: PokedexBusinessLogic {
                 self.nextPage = URL(string: nextPage ?? "")
                 if let list = list {
                     self.pokemons?.append(contentsOf: list)
-                    self.presenter?.presentPokemonList(
+                    self.presenter.presentPokemonList(
                         response: PokedexModels.FetchPokemonList.Response(pokemons: list)
                     )
                 }

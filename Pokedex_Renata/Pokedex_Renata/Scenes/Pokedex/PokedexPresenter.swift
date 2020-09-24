@@ -28,7 +28,7 @@ extension PokedexPresenter: PokedexPresentationLogic {
             cells.append(
                 PokemonCell(
                     name: pokemon.name,
-                    imageURL: pokemon.sprites.other?.officialArtwork.frontDefault ?? "",
+                    imageURL: pokemon.sprites?.other?.officialArtwork.frontDefault ?? "",
                     cellColor: getCellColor(for: pokemon)
                 )
             )

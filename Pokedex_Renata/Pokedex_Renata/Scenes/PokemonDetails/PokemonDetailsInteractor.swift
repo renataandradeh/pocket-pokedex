@@ -19,10 +19,10 @@ protocol PokemonDetailsDataStore {
 
 class PokemonDetailsInteractor: PokemonDetailsDataStore {
     private var worker: PokemonDetailsWorkLogic?
-    private var presenter: PokemonDetailsPresenter?
+    private var presenter: PokemonDetailsPresentationLogic?
     var currentPokemon: Pokemon?
     
-    init(presenter: PokemonDetailsPresenter, worker: PokemonDetailsWorkLogic) {
+    init(presenter: PokemonDetailsPresentationLogic, worker: PokemonDetailsWorkLogic) {
         self.presenter = presenter
         self.worker = worker
     }
@@ -33,7 +33,8 @@ extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
         presenter?.presentPokemonDetails(
             response: .init(
                 currentPokemon: currentPokemon,
-                isFavorite: worker?.isFavorite(pokemon: currentPokemon) ?? false))
+                isFavorite: worker?.isFavorite(pokemon: currentPokemon) ?? false)
+        )
     }
     
     func favoritePokemon() {

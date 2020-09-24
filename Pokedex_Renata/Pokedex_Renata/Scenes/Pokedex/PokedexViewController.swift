@@ -22,7 +22,7 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
+        interactor?.fetchPokemonList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +55,7 @@ extension PokedexViewController: PokedexDisplayLogic {
 //  MARK: - PokedexViewDelegate
 extension PokedexViewController: PokedexViewDelegate {
     func didScrollToTheEnd() {
-        interactor?.fetchPokemonList(request: PokedexModels.FetchPokemonList.Request())
+        interactor?.fetchPokemonList()
     }
     
     func didSelectPokemonAt(indexPath: IndexPath) {

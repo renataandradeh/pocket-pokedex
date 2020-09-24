@@ -14,8 +14,9 @@ enum PokemonDetailsWorkerResult {
 }
 
 protocol PokemonDetailsWorkLogic {
-    func likePokemon(completion: @escaping (PokemonDetailsWorkerResult) -> Void)
-    func addToFavorites(pokemon: Pokemon) -> Bool
+    func isFavorite(pokemon: Pokemon?) -> Bool
+    func favoritePokemon(completion: @escaping (PokemonDetailsWorkerResult) -> Void)
+    func addToFavorites(pokemon: Pokemon?) -> Bool
 }
 
 //  MARK: - Networking
@@ -36,7 +37,13 @@ class PokemonDetailsWorker: Networking {
 }
 //  MARK: - PokemonDetailsWorkLogic
 extension PokemonDetailsWorker: PokemonDetailsWorkLogic {
-    func likePokemon(completion: @escaping (PokemonDetailsWorkerResult) -> Void) {
+    func isFavorite(pokemon: Pokemon?) -> Bool {
+        guard let pokemon = pokemon else { return false }
+        let key = "\(pokemon.id)"
+        return userDefaults.bool(forKey: key)
+    }
+    
+    func favoritePokemon(completion: @escaping (PokemonDetailsWorkerResult) -> Void) {
         let url = URLBuilder.make(withEndpoint: .favoritePokemon)
         session.dataTask(with: makeRequest(withURL: url, method: .post)) { (data, response, error) in
             guard let _ = data, error == nil else {
@@ -53,10 +60,11 @@ extension PokemonDetailsWorker: PokemonDetailsWorkLogic {
         }.resume()
     }
     
-    func addToFavorites(pokemon: Pokemon) -> Bool {
+    func addToFavorites(pokemon: Pokemon?) -> Bool {
+        guard let pokemon = pokemon else { return false }
         let key = "\(pokemon.id)"
-        let favorite = userDefaults.bool(forKey: key)
-        if favorite {
+        if isFavorite(pokemon: pokemon) {
+            userDefaults.removeObject(forKey: key)
             return false
         } else {
             userDefaults.set(true, forKey: key)

@@ -30,6 +30,7 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
             .init(
                 id: "\(currentPokemon.id)",
                 name: currentPokemon.name,
+                isFavorite: response.isFavorite,
                 height: "\(currentPokemon.height)",
                 weight: "\(currentPokemon.weight)",
                 imageUrl: currentPokemon.sprites.other?.officialArtwork.frontDefault ?? "",
@@ -44,7 +45,13 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
         let message = response.wasAdded ? "Pokemon added to the favorites!" : "You already liked this Pokemon!"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        viewController?.displayAddedToFavorites(viewModel: .init(alert: alert))
+        viewController?.displayAddedToFavorites(
+            viewModel:
+            .init(
+                isFavorite: response.wasAdded,
+                alert: alert
+            )
+        )
     }
 }
 

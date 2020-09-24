@@ -15,11 +15,13 @@ enum PokemonDetailsModels {
         
         struct Response: Model {
             let currentPokemon: Pokemon?
+            let isFavorite: Bool
         }
         
         struct ViewModel {
             let id: String
             let name: String
+            let isFavorite: Bool
             let height: String
             let weight: String
             let imageUrl: String
@@ -37,6 +39,7 @@ enum PokemonDetailsModels {
         }
         
         struct ViewModel {
+            let isFavorite: Bool
             let alert: UIAlertController
         }
     }

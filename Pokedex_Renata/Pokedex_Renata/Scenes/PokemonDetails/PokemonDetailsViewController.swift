@@ -43,6 +43,8 @@ extension PokemonDetailsViewController: PokemonDetailsDisplayLogic {
     }
     
     func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel) {
+        guard let view = view as? PokemonDetailsView else { return }
+        view.set(isFavorite: viewModel.isFavorite)
         present(viewModel.alert, animated: true)
     }
 }

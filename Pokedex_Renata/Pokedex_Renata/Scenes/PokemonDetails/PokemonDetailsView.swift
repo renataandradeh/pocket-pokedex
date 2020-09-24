@@ -47,6 +47,10 @@ class PokemonDetailsView: UIView {
         self.viewModel = viewModel
         setupView()
     }
+    
+    func set(isFavorite: Bool) {
+        addToFavoritesButton.title = isFavorite ? String.Icon.filledHeart : String.Icon.emptyHeart
+    }
 
     //  MARK: - Views
     private lazy var contentStackView: UIStackView = {
@@ -215,6 +219,16 @@ class PokemonDetailsView: UIView {
         label.addGestureRecognizer(tapGesture)
         return label
     }()
+    
+    private lazy var addToFavoritesButton: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            title: viewModel?.isFavorite ?? false ? String.Icon.filledHeart : String.Icon.emptyHeart,
+            style: .plain,
+            target: self,
+            action: #selector(addTofavoritesTapped)
+        )
+        return item
+    }()
 }
 
 //  MARK: - ViewCode
@@ -315,7 +329,7 @@ extension PokemonDetailsView: ViewCode {
     func additionalConfigurations() {
         backgroundColor = .white
         pokemonImageView.layer.cornerRadius = frame.height / 6
-        makeAddToFavoritesBarButtonItem()
+        setAddToFavoritesButton()
     }
 }
 
@@ -343,13 +357,8 @@ private extension PokemonDetailsView {
         return label
     }
     
-    private func makeAddToFavoritesBarButtonItem() {
-        let item = UIBarButtonItem(
-            title: String.Icon.emptyHeart,
-            style: .plain,
-            target: self,
-            action: #selector(addTofavoritesTapped)
-        )
+    private func setAddToFavoritesButton() {
+        let item = addToFavoritesButton
         let font: UIFont = .pageSubtitle
         item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         delegate?.didCreateTabBar(item: item)

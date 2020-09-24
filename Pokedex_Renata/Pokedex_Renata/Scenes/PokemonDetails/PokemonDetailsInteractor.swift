@@ -30,25 +30,32 @@ class PokemonDetailsInteractor: PokemonDetailsDataStore {
 
 extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
     func fetchCurrentPokemonDetails() {
-        presenter?.presentPokemonDetails(response: .init(currentPokemon: currentPokemon))
+        presenter?.presentPokemonDetails(
+            response: .init(
+                currentPokemon: currentPokemon,
+                isFavorite: worker?.isFavorite(pokemon: currentPokemon) ?? false))
     }
     
     func favoritePokemon() {
-        worker?.likePokemon(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                print(error)
-            //  TODO: present an error
-            case .success:
-                self.addToFavorites()
-            }
-        })
+        if let isFavorite = worker?.isFavorite(pokemon: currentPokemon), !isFavorite {
+            worker?.favoritePokemon(completion: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    print(error)
+                //  TODO: present an error
+                case .success:
+                    self.addToFavorites(pokemon: self.currentPokemon)
+                }
+            })
+        } else {
+            addToFavorites(pokemon: currentPokemon)
+        }
     }
     
-    private func addToFavorites() {
-        guard let worker = worker, let currentPokemon = currentPokemon else { return }
-        let addedToFavorites = worker.addToFavorites(pokemon: currentPokemon)
+    private func addToFavorites(pokemon: Pokemon?) {
+        guard let worker = worker, let pokemon = pokemon else { return }
+        let addedToFavorites = worker.addToFavorites(pokemon: pokemon)
         presenter?.presentAddedToFavorites(response: .init(wasAdded: addedToFavorites))
     }
 }

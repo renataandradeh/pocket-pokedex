@@ -139,7 +139,7 @@
 		1275DCBC251D3249006BA5BB /* PokemonDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsViewControllerTests.swift; sourceTree = "<group>"; };
 		1275DCBE251D32E6006BA5BB /* PokemonDetailsInteractorSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsInteractorSpy.swift; sourceTree = "<group>"; };
 		1275DCC0251D336A006BA5BB /* PokemonDetailsRouterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsRouterSpy.swift; sourceTree = "<group>"; };
-		128259F7250C059400EC915D /* Pokedex_Renata.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex_Renata.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		128259F7250C059400EC915D /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		128259FA250C059400EC915D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		128259FE250C059400EC915D /* PokedexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewController.swift; sourceTree = "<group>"; };
 		12825A03250C059800EC915D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		128259F8250C059400EC915D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				128259F7250C059400EC915D /* Pokedex_Renata.app */,
+				128259F7250C059400EC915D /* Pokedex.app */,
 				12825A0D250C059800EC915D /* Pokedex_RenataTests.xctest */,
 			);
 			name = Products;
@@ -479,7 +479,7 @@
 				1254A7DA251051520022DDC9 /* SDWebImage */,
 			);
 			productName = Pokedex_Renata;
-			productReference = 128259F7250C059400EC915D /* Pokedex_Renata.app */;
+			productReference = 128259F7250C059400EC915D /* Pokedex.app */;
 			productType = "com.apple.product-type.application";
 		};
 		12825A0C250C059800EC915D /* Pokedex_RenataTests */ = {
@@ -795,7 +795,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renataandrade.Pokedex-Renata";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pokedex;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -814,7 +814,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renataandrade.Pokedex-Renata";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Pokedex;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -31,9 +31,13 @@ class PokemonInfoView: UIView {
         return label
     }()
     
-    private lazy var tableView: PokemonInfoTableView = {
-        let tableView = PokemonInfoTableView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
         tableView.dataSource = self
+        tableView.register(PokemonInfoCell.self, forCellReuseIdentifier: "PokemonInfoCell")
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -77,7 +81,7 @@ extension PokemonInfoView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.tableView.cellReuseIdentifier, for: indexPath) as! PokemonInfoCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonInfoCell", for: indexPath) as! PokemonInfoCell
         guard let viewModel = viewModel else { return cell }
         cell.nameLabel.text = viewModel.infoList[indexPath.row].title
         

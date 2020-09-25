@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Sprites: Model {
+struct Sprites: Model {
     static func == (lhs: Sprites, rhs: Sprites) -> Bool {
         return lhs.other == rhs.other
     }

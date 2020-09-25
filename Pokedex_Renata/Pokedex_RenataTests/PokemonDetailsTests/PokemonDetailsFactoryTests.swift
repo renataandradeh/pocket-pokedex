@@ -1,5 +1,5 @@
 //
-//  PokemonInfoFactoryTests.swift
+//  PokemonDetailsFactoryTests.swift
 //  Pokedex_RenataTests
 //
 //  Created by Renata Andrade on 25/09/20.
@@ -9,10 +9,10 @@
 import XCTest
 @testable import Pokedex
 
-class PokemonInfoFactoryTests: XCTestCase {
-    func test_makeController_returns_a_PokemonInfoVIewController() {
-        let sut = PokemonInfoFactory.makeController(currentPokemon: Seeds.dummyPokemon, infoType: .games)
-        XCTAssertNotNil(sut as? PokemonInfoViewController)
+class PokemonDetailsFactoryTests: XCTestCase {
+    func test_makeController_returns_a_PokemonDetailsVIewController() {
+        let sut = PokemonDetailsFactory.makeController(currentPokemon: Seeds.dummyPokemon)
+        XCTAssertNotNil(sut as? PokemonDetailsViewController)
     }
 }
 

@@ -43,10 +43,9 @@ extension PokedexPresenter: PokedexPresentationLogic {
 extension PokedexPresenter {
     private func getCellColor(for pokemon: Pokemon) -> UIColor {
         let names = getTypesNames(for: pokemon)
-        guard let name = names.first else { return .gray }
+        guard let name = names.last else { return .gray }
         let tag = TagLabel(title: name)
-        let color: UIColor = tag.backgroundColor ?? .gray
-        return color
+        return tag.backgroundColor ?? .gray
     }
     
     private func getTypesNames(for pokemon: Pokemon) -> [String] {

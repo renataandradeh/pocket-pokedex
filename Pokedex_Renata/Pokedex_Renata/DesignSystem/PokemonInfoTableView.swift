@@ -23,8 +23,8 @@ class PokemonInfoTableView: UITableView {
     
     private func setup() {
         register(PokemonInfoCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        tableFooterView = UIView()
         separatorStyle = .none
+        tableFooterView = UIView()
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

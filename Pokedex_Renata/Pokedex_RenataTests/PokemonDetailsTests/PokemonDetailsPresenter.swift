@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pokedex_Renata
+@testable import Pokedex
 
 class PokemonDetailsPresenterTests: XCTestCase {
     var sut: PokemonDetailsPresenter!

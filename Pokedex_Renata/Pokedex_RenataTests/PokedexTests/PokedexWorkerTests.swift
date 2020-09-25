@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Pokedex_Renata
+@testable import Pokedex
 
 class PokedexWorkerTests: XCTestCase {
     

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@testable import Pokedex_Renata
+@testable import Pokedex
 
 class PokedexWorkerSpy {
     var fetchPokedexCalled = false

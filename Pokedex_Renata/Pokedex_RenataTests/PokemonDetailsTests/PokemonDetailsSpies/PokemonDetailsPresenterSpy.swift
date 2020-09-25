@@ -6,7 +6,7 @@
 //  Copyright © 2020 Renata Gondim Andrade. All rights reserved.
 //
 
-@testable import Pokedex_Renata
+@testable import Pokedex
 
 class PokemonDetailsPresenterSpy {
     var presentPokemonDetailsCalled = false

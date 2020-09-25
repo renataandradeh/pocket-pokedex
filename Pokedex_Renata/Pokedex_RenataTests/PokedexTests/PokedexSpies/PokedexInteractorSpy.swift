@@ -6,7 +6,7 @@
 //  Copyright © 2020 Renata Gondim Andrade. All rights reserved.
 //
 
-@testable import Pokedex_Renata
+@testable import Pokedex
 
 class PokedexInteractorSpy {
     var fetchPokemonListCalled = false
@@ -15,7 +15,7 @@ class PokedexInteractorSpy {
 }
 
 extension PokedexInteractorSpy: PokedexBusinessLogic {
-    func setCurrentPokemon(at index: Int) {
+    func setCurrentPokemon(at index: Int, withQuery query: String?) {
         setCurrentPokemonCalled = true
     }
     

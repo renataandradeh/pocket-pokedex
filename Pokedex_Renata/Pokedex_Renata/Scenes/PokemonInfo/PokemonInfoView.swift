@@ -9,21 +9,12 @@
 import UIKit
 import SnapKit
 
-protocol PokemonInfoViewDelegate: AnyObject {
-    func didTapClose()
-}
-
 class PokemonInfoView: UIView {
     private var viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel?
-    private weak var delegate: PokemonInfoViewDelegate?
     
-    init(
-        delegate: PokemonInfoViewDelegate,
-        viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel? = nil
-    ) {
+    init(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel? = nil) {
         super.init(frame: .zero)
         self.viewModel = viewModel
-        self.delegate = delegate
         setupView()
     }
     
@@ -31,17 +22,6 @@ class PokemonInfoView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private lazy var closeLabel: PaddingLabel = {
-        let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.pageSubtitle
-        label.textColor = .gray
-        label.text = String.Icon.close
-        label.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closeTapped))
-        label.addGestureRecognizer(tapGesture)
-        return label
-    }()
     
     private lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
@@ -66,22 +46,18 @@ class PokemonInfoView: UIView {
 
 extension PokemonInfoView: ViewCode {
     func buildViewHierarchy() {
-        addSubview(closeLabel)
         addSubview(titleLabel)
         addSubview(tableView)
     }
     
     func setupConstraints() {
-        closeLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview()
-        }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(closeLabel.snp.bottom).inset(8)
-            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().inset(16)
+            make.left.right.equalToSuperview().inset(8)
         }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.left.bottom.right.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).inset(8)
+            make.left.bottom.right.equalToSuperview().inset(8)
         }
     }
     
@@ -110,13 +86,6 @@ extension PokemonInfoView: UITableViewDataSource {
         }
         
         return cell
-    }
-}
-
-//  MARK: #selector()
-extension PokemonInfoView {
-    @objc func closeTapped() {
-        delegate?.didTapClose()
     }
 }
 

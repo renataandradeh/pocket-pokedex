@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.isTranslucent = false
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.tintColor = .gray
-//        navigationController.isNavigationBarHidden = true
         return navigationController
     }
 }

@@ -27,6 +27,12 @@ class PokemonDetailsViewController: UIViewController {
         interactor?.fetchCurrentPokemonDetails()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.setNavigationBarHidden(false, animated:   true)
+    }
+    
     func setup(
         interactor: PokemonDetailsBusinessLogic,
         router: (PokemonDetailsDataPassing & PokemonDetailsRoutingLogic)?

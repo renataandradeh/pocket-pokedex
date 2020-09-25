@@ -11,6 +11,7 @@ import UIKit
 protocol PokemonDetailsDisplayLogic: AnyObject {
     func displayPokemonDetails(viewModel: PokemonDetailsModels.DisplayPokemonDetails.ViewModel)
     func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel)
+    func displayAddingToFavoritesError(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel)
 }
 
 class PokemonDetailsViewController: UIViewController {
@@ -43,9 +44,15 @@ extension PokemonDetailsViewController: PokemonDetailsDisplayLogic {
     }
     
     func displayAddedToFavorites(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel) {
-        guard let view = view as? PokemonDetailsView else { return }
-        view.set(isFavorite: viewModel.isFavorite)
-        present(viewModel.alert, animated: true)
+        guard let view = view as? PokemonDetailsView, let isFavorite = viewModel.isFavorite else { return }
+        view.set(isFavorite: isFavorite)
+        view.setAddToFavoritesButton()
+    }
+    
+    func displayAddingToFavoritesError(viewModel: PokemonDetailsModels.DisplayAddedToFavorites.ViewModel) {
+        guard let errorAlert = viewModel.errorAlert, let view = view as? PokemonDetailsView else { return }
+        view.setAddToFavoritesButton()
+        present(errorAlert, animated: true)
     }
 }
 
@@ -64,10 +71,13 @@ extension PokemonDetailsViewController: PokemonDetailsViewDelegate {
     }
     
     func didTapAddToFavorites() {
+        guard let view = view as? PokemonDetailsView else { return }
+        view.setActivityIndicatorItem()
         interactor?.favoritePokemon()
     }
     
     func didCreateTabBar(item: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = nil
         navigationItem.rightBarButtonItem = item
     }
 }

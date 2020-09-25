@@ -42,9 +42,8 @@ extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
             worker?.favoritePokemon(completion: { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case .failure(let error):
-                    print(error)
-                //  TODO: present an error
+                case .failure:
+                    self.presenter?.presentAddingToFavoritesError()
                 case .success:
                     self.addToFavorites(pokemon: self.currentPokemon)
                 }
@@ -57,6 +56,6 @@ extension PokemonDetailsInteractor: PokemonDetailsBusinessLogic {
     private func addToFavorites(pokemon: Pokemon?) {
         guard let worker = worker, let pokemon = pokemon else { return }
         let addedToFavorites = worker.addToFavorites(pokemon: pokemon)
-        presenter?.presentAddedToFavorites(response: .init(wasAdded: addedToFavorites))
+        presenter?.presentAddedToFavorites(response: .init(wasAdded: addedToFavorites, error: nil))
     }
 }

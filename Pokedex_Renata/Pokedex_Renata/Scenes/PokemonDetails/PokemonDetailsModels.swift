@@ -10,9 +10,6 @@ import UIKit
 
 enum PokemonDetailsModels {
     enum DisplayPokemonDetails {
-        struct Request {
-        }
-        
         struct Response: Model {
             let currentPokemon: Pokemon?
             let isFavorite: Bool
@@ -31,16 +28,14 @@ enum PokemonDetailsModels {
     }
     
     enum DisplayAddedToFavorites {
-        struct Request {
-        }
-        
         struct Response: Model {
-            let wasAdded: Bool
+            let wasAdded: Bool?
+            let error: String?
         }
         
         struct ViewModel {
-            let isFavorite: Bool
-            let alert: UIAlertController
+            let isFavorite: Bool?
+            let errorAlert: UIAlertController?
         }
     }
 }

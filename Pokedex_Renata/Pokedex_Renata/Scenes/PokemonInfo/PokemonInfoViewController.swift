@@ -17,7 +17,7 @@ class PokemonInfoViewController: UIViewController {
     private var infoType: InfoType?
     
     override func loadView() {
-        view = PokemonInfoView()
+        view = PokemonInfoView(delegate: self)
     }
     
     override func viewDidLoad() {
@@ -36,5 +36,15 @@ extension PokemonInfoViewController: PokemonInfoDisplayLogic {
     func displayPokemonInfo(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel) {
         guard let view = view as? PokemonInfoView else { return }
         view.update(viewModel: viewModel)
+    }
+}
+
+//MARK: - PokemonInfoViewDelegate
+extension PokemonInfoViewController: PokemonInfoViewDelegate {
+    func didTapClose() {
+        DispatchQueue.main.async(execute: { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        })
     }
 }

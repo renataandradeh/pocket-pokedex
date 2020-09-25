@@ -51,6 +51,19 @@ class PokemonDetailsView: UIView {
     func set(isFavorite: Bool) {
         addToFavoritesButton.title = isFavorite ? String.Icon.filledHeart : String.Icon.emptyHeart
     }
+    
+    func setAddToFavoritesButton() {
+        let item = addToFavoritesButton
+        let font: UIFont = .pageSubtitle
+        item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+        delegate?.didCreateTabBar(item: item)
+    }
+    
+    func setActivityIndicatorItem() {
+        let item = activityIndicatorItem
+        item.startAnimating()
+        delegate?.didCreateTabBar(item: UIBarButtonItem(customView: item))
+    }
 
     //  MARK: - Views
     private lazy var contentStackView: UIStackView = {
@@ -229,6 +242,13 @@ class PokemonDetailsView: UIView {
         )
         return item
     }()
+    
+    private lazy var activityIndicatorItem: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        return indicator
+    }()
 }
 
 //  MARK: - ViewCode
@@ -355,13 +375,6 @@ private extension PokemonDetailsView {
         label.isUserInteractionEnabled = true
         label.textAlignment = .center
         return label
-    }
-    
-    private func setAddToFavoritesButton() {
-        let item = addToFavoritesButton
-        let font: UIFont = .pageSubtitle
-        item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
-        delegate?.didCreateTabBar(item: item)
     }
 }
 

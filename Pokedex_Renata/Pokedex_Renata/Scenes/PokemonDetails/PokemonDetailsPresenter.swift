@@ -11,6 +11,7 @@ import UIKit
 protocol PokemonDetailsPresentationLogic {
     func presentPokemonDetails(response: PokemonDetailsModels.DisplayPokemonDetails.Response)
     func presentAddedToFavorites(response: PokemonDetailsModels.DisplayAddedToFavorites.Response)
+    func presentAddingToFavoritesError()
 }
 
 class PokemonDetailsPresenter {
@@ -41,17 +42,16 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
     }
     
     func presentAddedToFavorites(response: PokemonDetailsModels.DisplayAddedToFavorites.Response) {
-        let title = response.wasAdded ? "Success" : "Warning"
-        let message = response.wasAdded ? "Pokemon added to the favorites!" : "You already liked this Pokemon!"
+        guard let wasAdded = response.wasAdded else { return }
+        viewController?.displayAddedToFavorites(viewModel: .init(isFavorite: wasAdded, errorAlert: nil))
+    }
+    
+    func presentAddingToFavoritesError() {
+        let title = "Warning"
+        let message = "Can't add to favorites :( \nPlease try again later"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        viewController?.displayAddedToFavorites(
-            viewModel:
-            .init(
-                isFavorite: response.wasAdded,
-                alert: alert
-            )
-        )
+        viewController?.displayAddingToFavoritesError(viewModel: .init(isFavorite: nil, errorAlert: alert))
     }
 }
 

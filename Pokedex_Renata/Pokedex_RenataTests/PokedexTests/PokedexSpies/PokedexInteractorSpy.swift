@@ -10,18 +10,17 @@
 
 class PokedexInteractorSpy {
     var fetchPokemonListCalled = false
-    var getPokemonCalled = false
     var setCurrentCalled = false
+    var setCurrentPokemonCalled = false
 }
 
 extension PokedexInteractorSpy: PokedexBusinessLogic {
-    func fetchPokemonList() {
-        fetchPokemonListCalled = true
+    func setCurrentPokemon(at index: Int) {
+        setCurrentPokemonCalled = true
     }
     
-    func getPokemon(at index: Int) -> Pokemon? {
-        getPokemonCalled = true
-        return nil
+    func fetchPokemonList() {
+        fetchPokemonListCalled = true
     }
     
     func setCurrent(pokemon: Pokemon) {

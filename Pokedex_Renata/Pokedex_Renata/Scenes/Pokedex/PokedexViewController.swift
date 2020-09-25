@@ -28,12 +28,12 @@ class PokedexViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+//        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func setup(
@@ -54,13 +54,17 @@ extension PokedexViewController: PokedexDisplayLogic {
 
 //  MARK: - PokedexViewDelegate
 extension PokedexViewController: PokedexViewDelegate {
+    func didCreate(item: UIBarButtonItem) {
+        navigationItem.leftBarButtonItem = item
+    }
+    
     func didScrollToTheEnd() {
         interactor?.fetchPokemonList()
     }
     
-    func didSelectPokemonAt(indexPath: IndexPath) {
-        guard let pokemon = interactor?.getPokemon(at: indexPath.row) else { return }
-        interactor?.setCurrent(pokemon: pokemon)
+    func didSelectPokemonAt(indexPath: IndexPath, withQuery query: String?) {
+        interactor?.setCurrentPokemon(at: indexPath.row, withQuery: query)
         router?.routeToDetailsScreen()
     }
+    
 }

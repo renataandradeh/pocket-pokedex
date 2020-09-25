@@ -24,10 +24,6 @@ class PokemonDetailsPresenterTests: XCTestCase {
         XCTAssertTrue(viewControllerSpy.displayPokemonDetailsCalled)
     }
     
-    func test_presentAddedToFavorites_calls_viewController_to_display_added_to_favorites() {
-        sut.presentAddedToFavorites(response: .init(wasAdded: true))
-    }
-    
     override func tearDown() {
         viewControllerSpy = nil
         sut = nil

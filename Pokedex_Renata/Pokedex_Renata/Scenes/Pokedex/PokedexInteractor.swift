@@ -10,8 +10,7 @@ import Foundation
 
 protocol PokedexBusinessLogic {
     func fetchPokemonList()
-    func getPokemon(at index: Int) -> Pokemon?
-    func setCurrent(pokemon: Pokemon)
+    func setCurrentPokemon(at index: Int, withQuery query: String?)
 }
 
 protocol PokedexDataStore {
@@ -38,13 +37,20 @@ class PokedexInteractor: PokedexDataStore {
 }
 
 extension PokedexInteractor: PokedexBusinessLogic {
-    func getPokemon(at index: Int) -> Pokemon? {
-        guard let pokemons = pokemons, index >= 0, index < pokemons.count else { return nil }
-        return pokemons[index]
+    func setCurrentPokemon(at index: Int, withQuery query: String?) {
+        guard let pokemon = getPokemon(at: index, withQuery: query) else { return }
+        currentPokemon = pokemon
     }
     
-    func setCurrent(pokemon: Pokemon) {
-        currentPokemon = pokemon
+    private func getPokemon(at index: Int, withQuery query: String?) -> Pokemon? {
+        guard let pokemons = pokemons, index >= 0, index < pokemons.count else { return nil }
+        if let query = query, !query.isEmpty {
+            let filteredPokemons = pokemons.filter({ pokemon -> Bool in
+                return pokemon.name.lowercased().contains(query.lowercased())
+            })
+            return filteredPokemons[index]
+        }
+        return pokemons[index]
     }
     
     func fetchPokemonList() {

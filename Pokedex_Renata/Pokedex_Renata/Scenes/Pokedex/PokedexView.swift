@@ -12,12 +12,16 @@ import SDWebImage
 
 protocol PokedexViewDelegate: AnyObject {
     func didScrollToTheEnd()
-    func didSelectPokemonAt(indexPath: IndexPath)
+    func didSelectPokemonAt(indexPath: IndexPath, withQuery query: String?)
+    func didCreate(item: UIBarButtonItem)
 }
 
 class PokedexView: UIView {
     private weak var delegate: PokedexViewDelegate?
+    
     private var pokemons: [PokemonCell] = []
+    private var filteredPokemons: [PokemonCell] = []
+    private var isSearching: Bool = false
     
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
@@ -31,18 +35,33 @@ class PokedexView: UIView {
     }
     
     private lazy var tableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PokedexTableViewCell.self, forCellReuseIdentifier: "PokedexTableViewCell")
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .default
+        searchBar.placeholder = "Search by Pokémon's name"
+        searchBar.isTranslucent = false
+        searchBar.backgroundImage = UIImage()
+        searchBar.sizeToFit()
+        return searchBar
+    }()
+    
     func update(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         pokemons.append(contentsOf: viewModel.pokemonCells)
+        if !isSearching {
+            filteredPokemons.append(contentsOf: pokemons)
+        }
         tableView.reloadData()
     }
 }
@@ -58,12 +77,17 @@ extension PokedexView: ViewCode {
             make.edges.equalToSuperview()
         }
     }
+    
+    func additionalConfigurations() {
+        let item = UIBarButtonItem(customView: searchBar)
+        delegate?.didCreate(item: item)
+    }
 }
 
 //  MARK: - UITableViewDataSource
 extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokemons.count
+        return isSearching ? filteredPokemons.count : pokemons.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,7 +96,7 @@ extension PokedexView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokedexTableViewCell") as! PokedexTableViewCell
-        let pokemon = pokemons[indexPath.row]
+        let pokemon = isSearching ? filteredPokemons[indexPath.row] : pokemons[indexPath.row]
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.imageURL))
@@ -90,7 +114,7 @@ extension PokedexView: UITableViewDataSource {
 //  MARK: - UITableViewDelegate
 extension PokedexView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectPokemonAt(indexPath: indexPath)
+        delegate?.didSelectPokemonAt(indexPath: indexPath, withQuery: searchBar.text)
     }
 }
 
@@ -103,5 +127,21 @@ extension PokedexView: UIScrollViewDelegate {
         if distanceFromBottom <= (height + height * 0.3) {
             delegate?.didScrollToTheEnd()
         }
+    }
+}
+
+extension PokedexView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty  else {
+            isSearching = false
+            filteredPokemons = pokemons
+            tableView.reloadData()
+            return
+        }
+        isSearching = true
+        filteredPokemons = pokemons.filter({ pokemon -> Bool in
+            return pokemon.name.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
     }
 }

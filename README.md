@@ -1,3 +1,5 @@
+[![Build Status](https://app.bitrise.io/app/61383b9701cafaf5/status.svg?token=O2BAf-kzU2fvMFGFWO35Jw)](https://app.bitrise.io/app/61383b9701cafaf5)
+
 # Pocket Pokedex 🔎
 
 It's a Pokedex-style iOS app with informations provided by [PokéApi](https://pokeapi.co/), written in Swift using the Clean Architecture design.

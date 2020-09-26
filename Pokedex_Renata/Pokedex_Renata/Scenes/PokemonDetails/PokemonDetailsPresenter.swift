@@ -32,8 +32,8 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
                 id: "\(currentPokemon.id)",
                 name: currentPokemon.name,
                 isFavorite: response.isFavorite,
-                height: "\(currentPokemon.height)",
-                weight: "\(currentPokemon.weight)",
+                height: "\(Double(currentPokemon.height) / 10.0)",
+                weight: "\(Double(currentPokemon.weight) / 10.0)",
                 imageUrl: currentPokemon.sprites?.other?.officialArtwork.frontDefault ?? "",
                 tags: tags,
                 gradientColors: getColors(for: tags)

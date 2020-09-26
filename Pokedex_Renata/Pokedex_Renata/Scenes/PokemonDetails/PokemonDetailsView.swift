@@ -166,7 +166,7 @@ class PokemonDetailsView: UIView {
         label.textColor = .white
         label.attributedText = setFontAttributeTo(
             textPrefix: "\(viewModel?.height ?? "--")",
-            fontPrefix: .pageTitleBold,
+            fontPrefix: .featuredDetail,
             textSufix: "m",
             fontSufix: .itemTitle
         )
@@ -180,7 +180,7 @@ class PokemonDetailsView: UIView {
         label.textColor = .white
         label.attributedText = setFontAttributeTo(
             textPrefix: "\(viewModel?.weight ?? "--")",
-            fontPrefix: .pageTitleBold,
+            fontPrefix: .featuredDetail,
             textSufix: "kg",
             fontSufix: .itemTitle
         )
@@ -325,6 +325,7 @@ extension PokemonDetailsView: ViewCode {
             make.centerX.equalTo(pokemonImageView.snp.centerX)
         }
         heightTitleLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
             make.left.equalToSuperview().inset(16)
             make.top.equalTo(heightValueLabel.snp.bottom).offset(8)
             make.bottom.equalToSuperview().inset(16)

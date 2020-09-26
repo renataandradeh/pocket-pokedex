@@ -87,7 +87,13 @@ extension PokedexView: ViewCode {
 //  MARK: - UITableViewDataSource
 extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearching ? filteredPokemons.count : pokemons.count
+        let list = isSearching ? filteredPokemons : pokemons
+        if list.isEmpty {
+            tableView.setEmptyMessage()
+        } else {
+            tableView.restore()
+        }
+        return list.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -1,4 +1,4 @@
-[![Build Status](https://app.bitrise.io/app/61383b9701cafaf5/status.svg?token=O2BAf-kzU2fvMFGFWO35Jw)](https://app.bitrise.io/app/61383b9701cafaf5)
+[![Build Status](https://app.bitrise.io/app/61383b9701cafaf5/status.svg?token=O2BAf-kzU2fvMFGFWO35Jw)](https://app.bitrise.io/app/61383b9701cafaf5) [![codecov](https://codecov.io/gh/renataandradeh/pocket-pokedex/branch/develop/graph/badge.svg?token=R55TOVZ2DD)](https://codecov.io/gh/renataandradeh/pocket-pokedex)
 
 # Pocket Pokedex 🔎
 

@@ -43,8 +43,10 @@ class PokemonInfoView: UIView {
     
     func update(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel) {
         self.viewModel = viewModel
-        titleLabel.text = viewModel.pageTitle
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.titleLabel.text = viewModel.pageTitle
+            self?.tableView.reloadData()
+        }
     }
 }
 

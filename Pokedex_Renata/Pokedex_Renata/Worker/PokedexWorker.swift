@@ -39,8 +39,8 @@ protocol PokedexWorkLogic {
 class PokedexWorker: Networking {
     var session: URLSession
 
-    init(session: URLSession = URLSession.shared) {
-        self.session = session
+    init(session: URLSession? = nil) {
+        self.session = session ?? URLSession.shared
     }
     
     func makeRequest(withURL url: URL, method: HTTPMethod) -> URLRequest {

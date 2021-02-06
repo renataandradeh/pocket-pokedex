@@ -22,7 +22,9 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor?.fetchPokemonList()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.interactor?.fetchPokemonList()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +49,9 @@ class PokedexViewController: UIViewController {
 extension PokedexViewController: PokedexDisplayLogic {
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         guard let pokedexView = view as? PokedexView else { return }
-        pokedexView.update(viewModel: viewModel)
+        DispatchQueue.main.async {
+            pokedexView.update(viewModel: viewModel)
+        }
     }
 }
 
@@ -58,7 +62,9 @@ extension PokedexViewController: PokedexViewDelegate {
     }
     
     func didScrollToTheEnd() {
-        interactor?.fetchPokemonList()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.interactor?.fetchPokemonList()
+        }
     }
     
     func didSelectPokemonAt(indexPath: IndexPath, withQuery query: String?) {

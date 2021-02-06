@@ -127,10 +127,7 @@ extension PokedexView: UITableViewDelegate {
 //  MARK: - UIScrollViewDelegate
 extension PokedexView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let height = scrollView.frame.size.height
-        let contentYoffset = scrollView.contentOffset.y
-        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        if distanceFromBottom <= (height + height * 0.3) {
+        if scrollView.contentOffset.y >= 75.0 {
             delegate?.didScrollToTheEnd()
         }
     }

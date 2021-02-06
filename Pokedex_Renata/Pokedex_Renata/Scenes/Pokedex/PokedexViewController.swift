@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PokedexDisplayLogic: AnyObject {
+    func displayPokemonListError()
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel)
 }
 
@@ -24,16 +25,21 @@ class PokedexViewController: UIViewController {
         super.viewDidLoad()
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.interactor?.fetchPokemonList()
+            
+            DispatchQueue.main.async {
+                self?.startLoading()
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "",
-                                                           style: .plain,
-                                                           target: nil,
-                                                           action: nil
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
         )
     }
     
@@ -47,10 +53,17 @@ class PokedexViewController: UIViewController {
 }
 
 extension PokedexViewController: PokedexDisplayLogic {
+    func displayPokemonListError() {
+        DispatchQueue.main.async { [weak self] in
+            self?.stopLoading()
+        }
+    }
+    
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         guard let pokedexView = view as? PokedexView else { return }
-        DispatchQueue.main.async {
-            pokedexView.update(viewModel: viewModel)
+        pokedexView.update(viewModel: viewModel)
+        DispatchQueue.main.async { [weak self] in
+            self?.stopLoading()
         }
     }
 }
@@ -71,5 +84,4 @@ extension PokedexViewController: PokedexViewDelegate {
         interactor?.setCurrentPokemon(at: indexPath.row, withQuery: query)
         router?.routeToDetailsScreen()
     }
-    
 }

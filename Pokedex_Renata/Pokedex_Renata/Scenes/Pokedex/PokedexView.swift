@@ -23,6 +23,8 @@ class PokedexView: UIView {
     private var filteredPokemons: [PokemonCell] = []
     private var isSearching: Bool = false
     
+    private var isFirstLoad: Bool = true
+    
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
         self.delegate = delegate
@@ -62,7 +64,10 @@ class PokedexView: UIView {
         if !isSearching {
             filteredPokemons.append(contentsOf: pokemons)
         }
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+        isFirstLoad = false
     }
 }
 
@@ -88,7 +93,7 @@ extension PokedexView: ViewCode {
 extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let list = isSearching ? filteredPokemons : pokemons
-        if list.isEmpty {
+        if list.isEmpty && !isFirstLoad {
             tableView.setEmptyMessage()
         } else {
             tableView.restore()
@@ -138,13 +143,19 @@ extension PokedexView: UISearchBarDelegate {
         guard !searchText.isEmpty  else {
             isSearching = false
             filteredPokemons = pokemons
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
             return
         }
+        
         isSearching = true
         filteredPokemons = pokemons.filter({ pokemon -> Bool in
             return pokemon.name.lowercased().contains(searchText.lowercased())
         })
-        tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

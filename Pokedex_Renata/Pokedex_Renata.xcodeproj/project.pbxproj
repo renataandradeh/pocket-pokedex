@@ -84,6 +84,7 @@
 		12BF7AC7250D9B670017BABC /* PokedexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7AC6250D9B670017BABC /* PokedexTableViewCell.swift */; };
 		12BF7AC9250D9C870017BABC /* PokedexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BF7AC8250D9C870017BABC /* PokedexView.swift */; };
 		12F1C1A8251E888B00217254 /* PokemonInfoFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F1C1A7251E888B00217254 /* PokemonInfoFactoryTests.swift */; };
+		12FF81AC25CF1B9800830C99 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 12FF81AB25CF1B9800830C99 /* Lottie */; };
 		12FFF5002512E81800572AA2 /* PokemonDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF4FF2512E81800572AA2 /* PokemonDetailsModels.swift */; };
 		12FFF5022512FA1A00572AA2 /* PokemonDetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF5012512FA1A00572AA2 /* PokemonDetailsFactory.swift */; };
 		12FFF5042513075900572AA2 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF5032513075900572AA2 /* UIFont.swift */; };
@@ -191,6 +192,7 @@
 			files = (
 				1254A7DB251051520022DDC9 /* SDWebImage in Frameworks */,
 				12A8C42E250E7D2000BC4217 /* SnapKit in Frameworks */,
+				12FF81AC25CF1B9800830C99 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +505,7 @@
 			packageProductDependencies = (
 				12A8C42D250E7D2000BC4217 /* SnapKit */,
 				1254A7DA251051520022DDC9 /* SDWebImage */,
+				12FF81AB25CF1B9800830C99 /* Lottie */,
 			);
 			productName = Pokedex_Renata;
 			productReference = 128259F7250C059400EC915D /* Pokedex.app */;
@@ -557,6 +560,7 @@
 			packageReferences = (
 				12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1254A7D9251051520022DDC9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				12FF81AA25CF1B9800830C99 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 128259F8250C059400EC915D /* Products */;
 			projectDirPath = "";
@@ -943,6 +947,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		12FF81AA25CF1B9800830C99 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -955,6 +967,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12A8C42C250E7D2000BC4217 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		12FF81AB25CF1B9800830C99 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12FF81AA25CF1B9800830C99 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

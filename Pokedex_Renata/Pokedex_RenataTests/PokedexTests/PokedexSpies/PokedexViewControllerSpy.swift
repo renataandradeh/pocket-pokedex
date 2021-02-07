@@ -10,9 +10,14 @@
 
 class PokedexViewControllerSpy {
     var displayPokemonListCalled = false
+    var displayPokemonListErrorCalled = false
 }
 
 extension PokedexViewControllerSpy: PokedexDisplayLogic {
+    func displayPokemonListError() {
+        displayPokemonListErrorCalled = true
+    }
+    
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
         displayPokemonListCalled = true
     }

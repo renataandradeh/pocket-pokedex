@@ -26,14 +26,14 @@ class PokemonInfoCell: UITableViewCell {
     lazy var nameLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
         label.font = UIFont.itemTitle
-        label.textColor = .gray
+        label.textColor = .white
         return label
     }()
     
     lazy var valueLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.itemTitleBold
-        label.textColor = .gray
+        label.font = .itemTitleSemibold
+        label.textColor = .white
         return label
     }()
 }

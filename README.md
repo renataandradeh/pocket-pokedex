@@ -12,13 +12,14 @@ It's a Pokedex-style iOS app with informations provided by [PokéApi](https://po
 
 ## Dependencies
 
+  - Lottie 3.1.9
   - SnapKit 4.0.1
   - SDWebImage 5.9.1
   
 
 ## Screenshots
 
-<img src="/screenshots/list.png" width="290" height="500">   <img src="/screenshots/details.png" width="290" height="500"> 
+<img src="/screenshots/list.png" width="245" height="500">   <img src="/screenshots/details.png" width="245" height="500"> 
 
 ## Notes
 

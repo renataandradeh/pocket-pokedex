@@ -25,8 +25,8 @@ class PokemonInfoView: UIView {
     
     private lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.pageTitleBold
-        label.textColor = .gray
+        label.font = UIFont.pageTitle
+        label.textColor = .white
         label.text = viewModel?.pageTitle
         return label
     }()
@@ -37,14 +37,17 @@ class PokemonInfoView: UIView {
         tableView.register(PokemonInfoCell.self, forCellReuseIdentifier: "PokemonInfoCell")
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        tableView.backgroundColor = .black
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     func update(viewModel: PokemonInfoModels.DisplayPokemonInfo.ViewModel) {
         self.viewModel = viewModel
-        titleLabel.text = viewModel.pageTitle
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.titleLabel.text = viewModel.pageTitle
+            self?.tableView.reloadData()
+        }
     }
 }
 
@@ -60,13 +63,13 @@ extension PokemonInfoView: ViewCode {
             make.left.right.equalToSuperview().inset(8)
         }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).inset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(24)
             make.left.bottom.right.equalToSuperview().inset(8)
         }
     }
     
     func additionalConfigurations() {
-        backgroundColor = .white
+        backgroundColor = .black
     }
 }
 

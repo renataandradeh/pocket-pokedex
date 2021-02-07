@@ -10,11 +10,12 @@ import UIKit
 
 extension UIView {
     func applyGradient(colors: [UIColor]) {
+        guard let lastColor = colors.last else { return }
+
         var gradientColors: [CGColor] = []
-        for color in colors {
-            gradientColors.append(color.cgColor)
-        }
-        if gradientColors.count < 2 { gradientColors.append(UIColor.white.cgColor) }
+        gradientColors.append(lastColor.cgColor)
+        gradientColors.append(UIColor.black.cgColor)
+        
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds
         gradient.colors = gradientColors

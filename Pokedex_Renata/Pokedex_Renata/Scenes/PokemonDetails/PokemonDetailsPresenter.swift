@@ -32,14 +32,16 @@ extension PokemonDetailsPresenter: PokemonDetailsPresentationLogic {
                 id: "\(currentPokemon.id)",
                 name: currentPokemon.name,
                 isFavorite: response.isFavorite,
-                height: "\(Double(currentPokemon.height) / 10.0)",
-                weight: "\(Double(currentPokemon.weight) / 10.0)",
+                height: "\((Float(currentPokemon.height) / 10.0).clean)",
+                weight: "\((Float(currentPokemon.weight) / 10.0).clean)",
                 imageUrl: currentPokemon.sprites?.other?.officialArtwork.frontDefault ?? "",
                 tags: tags,
                 gradientColors: getColors(for: tags)
             )
         )
     }
+
+    
     
     func presentAddedToFavorites(response: PokemonDetailsModels.DisplayAddedToFavorites.Response) {
         guard let wasAdded = response.wasAdded else { return }

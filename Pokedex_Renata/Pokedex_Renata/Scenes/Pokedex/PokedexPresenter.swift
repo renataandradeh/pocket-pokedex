@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PokedexPresentationLogic {
+    func presentPokemonListError()
     func presentPokemonList(response: PokedexModels.FetchPokemonList.Response)
 }
 
@@ -22,6 +23,10 @@ class PokedexPresenter {
 
 //  MARK: - PokedexPresentationLogic
 extension PokedexPresenter: PokedexPresentationLogic {
+    func presentPokemonListError() {
+        viewController?.displayPokemonListError()
+    }
+    
     func presentPokemonList(response: PokedexModels.FetchPokemonList.Response) {
         var cells: [PokemonCell] = []
         for pokemon in response.pokemons {

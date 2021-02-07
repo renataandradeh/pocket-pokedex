@@ -24,7 +24,7 @@ class PokemonDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor?.fetchCurrentPokemonDetails()
+        self.interactor?.fetchCurrentPokemonDetails()
     }
     
     override func viewWillAppear(_ animated: Bool) {

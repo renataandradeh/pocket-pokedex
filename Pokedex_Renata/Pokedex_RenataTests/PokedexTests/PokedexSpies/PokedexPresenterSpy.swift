@@ -9,10 +9,15 @@
 @testable import Pokedex
 
 class PokedexPresenterSpy {
+    var presentPokemonListErrorCalled = false
     var presentPokemonListCalled = false
 }
 
 extension PokedexPresenterSpy: PokedexPresentationLogic {
+    func presentPokemonListError() {
+        presentPokemonListErrorCalled = true
+    }
+    
     func presentPokemonList(response: PokedexModels.FetchPokemonList.Response) {
         presentPokemonListCalled = true
     }

@@ -61,7 +61,7 @@ extension PokedexInteractor: PokedexBusinessLogic {
             switch result {
             case .failure(let error):
                 print(error)
-            //  TODO: present an error
+                self.presenter.presentPokemonListError()
             case .success(let nextPage, let list):
                 self.nextPage = URL(string: nextPage ?? "")
                 if let list = list {

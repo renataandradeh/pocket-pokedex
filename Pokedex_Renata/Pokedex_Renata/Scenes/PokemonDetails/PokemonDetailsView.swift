@@ -88,7 +88,7 @@ class PokemonDetailsView: UIView {
             shadowColor: .gray,
             shadowOffset: CGSize(width: 0, height: 1)
         )
-        imageView.sd_imageIndicator = SDWebImageActivityIndicator.white
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         if let viewModel = viewModel {
             imageView.sd_setImage(with: URL(string: viewModel.imageUrl))
         }

@@ -82,7 +82,7 @@ extension PokedexTableViewCell: ViewCode {
     
     func additionalConfigurations() {
         selectionStyle = .none
-        nameLabel.layer.cornerRadius = 10
+        nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
         pokemonImageView.layer.cornerRadius = 44
     }

@@ -25,10 +25,9 @@ class PokedexViewController: UIViewController {
         super.viewDidLoad()
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.interactor?.fetchPokemonList()
-            
-            DispatchQueue.main.async {
-                self?.startLoading()
-            }
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.startLoading()
         }
     }
     
@@ -56,14 +55,16 @@ class PokedexViewController: UIViewController {
 extension PokedexViewController: PokedexDisplayLogic {
     func displayPokemonListError() {
         DispatchQueue.main.async { [weak self] in
+            guard let pokedexView = self?.view as? PokedexView else { return }
+            pokedexView.update()
             self?.stopLoading()
         }
     }
     
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        guard let pokedexView = view as? PokedexView else { return }
-        pokedexView.update(viewModel: viewModel)
         DispatchQueue.main.async { [weak self] in
+            guard let pokedexView = self?.view as? PokedexView else { return }
+            pokedexView.update(viewModel: viewModel)
             self?.stopLoading()
         }
     }

@@ -46,6 +46,7 @@ class PokedexView: UIView {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -62,10 +63,12 @@ class PokedexView: UIView {
         return searchBar
     }()
     
-    func update(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        pokemons.append(contentsOf: viewModel.pokemonCells)
-        if !isSearching {
-            filteredPokemons.append(contentsOf: pokemons)
+    func update(viewModel: PokedexModels.FetchPokemonList.ViewModel? = nil) {
+        if let viewModel = viewModel {
+            pokemons.append(contentsOf: viewModel.pokemonCells)
+            if !isSearching {
+                filteredPokemons.append(contentsOf: pokemons)
+            }
         }
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
@@ -114,7 +117,7 @@ extension PokedexView: UITableViewDataSource {
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.imageURL))
-        cell.roundedView.backgroundColor = pokemon.cellColor.lighter()
+        cell.roundedView.backgroundColor = pokemon.cellColor.darker()?.withAlphaComponent(0.75)
         cell.pokemonImageView.backgroundColor = pokemon.cellColor
         cell.nameLabel.backgroundColor = pokemon.cellColor
         return cell

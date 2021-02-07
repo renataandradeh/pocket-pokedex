@@ -51,6 +51,6 @@ extension LoadingView: ViewCode {
     }
     
     func additionalConfigurations() {
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
 }

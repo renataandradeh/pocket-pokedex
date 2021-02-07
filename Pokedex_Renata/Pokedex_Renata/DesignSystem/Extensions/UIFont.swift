@@ -10,7 +10,7 @@ import UIKit
 
 extension UIFont {
     static let pageTitle = UIFont.boldSystemFont(ofSize: 34)
-    static let pageSubtitle = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let pageSubtitle = UIFont.systemFont(ofSize: 16, weight: .semibold)
     static let itemTitle = UIFont.boldSystemFont(ofSize: 20)
     static let itemTitleSemibold = UIFont.systemFont(ofSize: 20, weight: .semibold)
     static let subItemTitleBold = UIFont.boldSystemFont(ofSize: 16)

@@ -94,8 +94,8 @@ extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let list = isSearching ? filteredPokemons : pokemons
         if list.isEmpty && !isFirstLoad {
-            tableView.setEmptyMessage()
-        } else {
+            tableView.setEmptyState()
+        } else  {
             tableView.restore()
         }
         return list.count

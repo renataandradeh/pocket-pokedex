@@ -54,7 +54,7 @@ class PokemonDetailsView: UIView {
     
     func setAddToFavoritesButton() {
         let item = addToFavoritesButton
-        let font: UIFont = .pageSubtitle
+        let font: UIFont = .heartIcon
         item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         delegate?.didCreateTabBar(item: item)
     }
@@ -212,21 +212,21 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var abilitiesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "abilities", font: .pageTitleSemibold)
+        let label = makeRoundedPaddingLabel(withTitle: "abilities", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var statsLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "stats", font: .pageTitleSemibold)
+        let label = makeRoundedPaddingLabel(withTitle: "stats", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var gamesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "games", font: .pageTitleSemibold)
+        let label = makeRoundedPaddingLabel(withTitle: "games", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gamesTapped))
         label.addGestureRecognizer(tapGesture)
         return label

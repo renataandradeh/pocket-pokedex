@@ -18,7 +18,7 @@ It's a Pokedex-style iOS app with informations provided by [PokéApi](https://po
 
 ## Screenshots
 
-<img src="/screenshots/list.png" width="250" height="500">   <img src="/screenshots/details.png" width="250" height="500"> 
+<img src="/screenshots/list.png" width="245" height="500">   <img src="/screenshots/details.png" width="245" height="500"> 
 
 ## Notes
 

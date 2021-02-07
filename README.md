@@ -12,6 +12,7 @@ It's a Pokedex-style iOS app with informations provided by [PokéApi](https://po
 
 ## Dependencies
 
+  - Lottie 3.1.9
   - SnapKit 4.0.1
   - SDWebImage 5.9.1
   

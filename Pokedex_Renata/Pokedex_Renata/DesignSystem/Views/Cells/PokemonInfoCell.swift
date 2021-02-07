@@ -32,7 +32,7 @@ class PokemonInfoCell: UITableViewCell {
     
     lazy var valueLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.itemTitleBold
+        label.font = .itemTitleSemibold
         label.textColor = .gray
         return label
     }()

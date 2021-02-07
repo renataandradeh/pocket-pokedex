@@ -88,6 +88,7 @@
 		12FF81AC25CF1B9800830C99 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 12FF81AB25CF1B9800830C99 /* Lottie */; };
 		12FF81BA25CF26AE00830C99 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF81B925CF26AE00830C99 /* LoadingView.swift */; };
 		12FF81C025CF585100830C99 /* poke-loading-indicator.json in Resources */ = {isa = PBXBuildFile; fileRef = 12FF81BF25CF585100830C99 /* poke-loading-indicator.json */; };
+		12FF81C925CF631300830C99 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF81C825CF631300830C99 /* Float+Extensions.swift */; };
 		12FFF5002512E81800572AA2 /* PokemonDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF4FF2512E81800572AA2 /* PokemonDetailsModels.swift */; };
 		12FFF5022512FA1A00572AA2 /* PokemonDetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF5012512FA1A00572AA2 /* PokemonDetailsFactory.swift */; };
 		12FFF5042513075900572AA2 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FFF5032513075900572AA2 /* UIFont.swift */; };
@@ -186,6 +187,7 @@
 		12F1C1A7251E888B00217254 /* PokemonInfoFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoFactoryTests.swift; sourceTree = "<group>"; };
 		12FF81B925CF26AE00830C99 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		12FF81BF25CF585100830C99 /* poke-loading-indicator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "poke-loading-indicator.json"; sourceTree = "<group>"; };
+		12FF81C825CF631300830C99 /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		12FFF4FF2512E81800572AA2 /* PokemonDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsModels.swift; sourceTree = "<group>"; };
 		12FFF5012512FA1A00572AA2 /* PokemonDetailsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsFactory.swift; sourceTree = "<group>"; };
 		12FFF5032513075900572AA2 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				125E88E52519668600982580 /* String+Icons.swift */,
 				128932A6251EC6DA0009FD2E /* UITableView+EmptyState.swift */,
 				120BBEB925CF151D00F24FD2 /* UIViewController+Loading.swift */,
+				12FF81C825CF631300830C99 /* Float+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -486,11 +489,9 @@
 			isa = PBXGroup;
 			children = (
 				120BBEA725CF12B500F24FD2 /* Lottie */,
-				125E88E82519793900982580 /* Label */,
-				125E88E72519791B00982580 /* Cells */,
 				12BF7AC5250D73990017BABC /* Protocol */,
 				1254A7E025119DEB0022DDC9 /* Extensions */,
-				12FF81B925CF26AE00830C99 /* LoadingView.swift */,
+				12FF81C325CF62C400830C99 /* Views */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -501,6 +502,16 @@
 				12BF7AC3250D73930017BABC /* ViewCode.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		12FF81C325CF62C400830C99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				125E88E72519791B00982580 /* Cells */,
+				125E88E82519793900982580 /* Label */,
+				12FF81B925CF26AE00830C99 /* LoadingView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -628,6 +639,7 @@
 				1251E98425182FCC00B4A7DB /* PokemonInfoCell.swift in Sources */,
 				1251E99C2518E7B600B4A7DB /* PokemonInfoModels.swift in Sources */,
 				1254A7E225119E130022DDC9 /* UIColor+Colors.swift in Sources */,
+				12FF81C925CF631300830C99 /* Float+Extensions.swift in Sources */,
 				1254A7CE25102D5F0022DDC9 /* Pokemon.swift in Sources */,
 				1254A7D62510301E0022DDC9 /* Stat.swift in Sources */,
 				1251E9982518E75B00B4A7DB /* PokemonInfoInteractor.swift in Sources */,

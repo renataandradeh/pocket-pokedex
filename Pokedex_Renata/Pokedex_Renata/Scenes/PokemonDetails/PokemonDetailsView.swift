@@ -119,7 +119,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .pageTitleBold
+        label.font = .pageTitle
         label.textColor = .gray
         label.text = viewModel?.name
         return label
@@ -127,7 +127,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var idLabel: UILabel = {
         let label = UILabel()
-        label.font = .itemTitleBold
+        label.font = .itemTitleSemibold
         label.textColor = .gray
         label.text = "#\(viewModel?.id ?? "00")"
         return label
@@ -176,7 +176,6 @@ class PokemonDetailsView: UIView {
 
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = .pageSubtitleBold
         label.textColor = .white
         label.attributedText = setFontAttributeTo(
             textPrefix: "\(viewModel?.weight ?? "--")",
@@ -190,7 +189,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var heightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .subItemTitle
+        label.font = .subItemTitleSemibold
         label.textColor = .white
         label.text = "height"
         return label
@@ -198,7 +197,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var weightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .subItemTitle
+        label.font = .subItemTitleSemibold
         label.textColor = .white
         label.text = "weight"
         return label
@@ -213,21 +212,21 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var abilitiesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "abilities")
+        let label = makeRoundedPaddingLabel(withTitle: "abilities", font: .pageTitleSemibold)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var statsLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "stats")
+        let label = makeRoundedPaddingLabel(withTitle: "stats", font: .pageTitleSemibold)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var gamesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "games")
+        let label = makeRoundedPaddingLabel(withTitle: "games", font: .pageTitleSemibold)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gamesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -365,12 +364,12 @@ private extension PokemonDetailsView {
         return prefix
     }
     
-    private func makeRoundedPaddingLabel(withTitle title: String) -> PaddingLabel {
+    private func makeRoundedPaddingLabel(withTitle title: String, font: UIFont? = .subItemTitleBold) -> PaddingLabel {
         let label = PaddingLabel(withInsets: 14, 14, 14, 14)
         label.layer.cornerRadius = 24
         label.layer.masksToBounds = true
         label.backgroundColor = viewModel?.gradientColors.first
-        label.font = .subItemTitleBold
+        label.font = font
         label.textColor = .white
         label.text = title
         label.isUserInteractionEnabled = true

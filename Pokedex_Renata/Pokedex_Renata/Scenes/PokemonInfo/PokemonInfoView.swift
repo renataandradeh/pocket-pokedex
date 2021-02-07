@@ -25,7 +25,7 @@ class PokemonInfoView: UIView {
     
     private lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = UIFont.pageTitleBold
+        label.font = UIFont.pageTitle
         label.textColor = .gray
         label.text = viewModel?.pageTitle
         return label

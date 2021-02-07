@@ -9,22 +9,26 @@
 import UIKit
 
 extension UITableView {
-    func setEmptyMessage(_ message: String = "Gotta catch them! 🔎") {
-        let messageLabel = UILabel(
-            frame: CGRect(x: .zero, y: .zero, width: self.bounds.size.width, height: self.bounds.size.height)
-        )
-        messageLabel.text = message
-        messageLabel.textColor = .gray
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.font = UIFont.itemTitle
-        messageLabel.sizeToFit()
+    private static var emptyStateView: EmptyStateView?
 
-        self.backgroundView = messageLabel
+    func setEmptyState() {
+        guard backgroundView == nil else { return }
+        UITableView.emptyStateView = EmptyStateView(frame: backgroundView?.bounds ?? .zero)
+        
+        guard let emptyStateView = UITableView.emptyStateView else { return }
+        emptyStateView.play()
+        backgroundView = UITableView.emptyStateView
         self.separatorStyle = .none
     }
-
+    
     func restore() {
-        self.backgroundView = nil
+        guard
+            let emptyStateView = UITableView.emptyStateView,
+            backgroundView != nil
+        else {
+            return
+        }
+        emptyStateView.stop()
+        backgroundView = nil
     }
 }

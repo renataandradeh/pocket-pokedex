@@ -45,7 +45,7 @@ class PokedexTableViewCell: UITableViewCell {
     
     private lazy var chevronLabel: PaddingLabel = {
         let label = PaddingLabel(withInsets: 8, 8, 8, 8)
-        label.font = .pageSubtitle
+        label.font = .chevronRightIcon
         label.text = String.Icon.chevronRight
         label.textColor = .white
         return label
@@ -72,17 +72,17 @@ extension PokedexTableViewCell: ViewCode {
         nameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(pokemonImageView.snp.centerY)
             make.left.equalTo(pokemonImageView.snp.right).offset(-16)
-            make.right.equalTo(chevronLabel.snp.left).offset(32)
+            make.right.equalTo(roundedView.snp.right).inset(16)
         }
         chevronLabel.snp.makeConstraints { make in
             make.centerY.equalTo(pokemonImageView.snp.centerY)
-            make.right.equalToSuperview().inset(16)
+            make.right.equalTo(nameLabel.snp.right)
         }
     }
     
     func additionalConfigurations() {
         selectionStyle = .none
-        nameLabel.layer.cornerRadius = 10
+        nameLabel.layer.cornerRadius = 6
         nameLabel.layer.masksToBounds = true
         pokemonImageView.layer.cornerRadius = 44
     }

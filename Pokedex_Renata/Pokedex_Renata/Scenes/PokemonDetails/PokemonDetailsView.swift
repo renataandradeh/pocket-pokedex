@@ -54,8 +54,9 @@ class PokemonDetailsView: UIView {
     
     func setAddToFavoritesButton() {
         let item = addToFavoritesButton
-        let font: UIFont = .pageSubtitle
+        let font: UIFont = .heartIcon
         item.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+        item.tintColor = .white
         delegate?.didCreateTabBar(item: item)
     }
     
@@ -84,8 +85,8 @@ class PokemonDetailsView: UIView {
         let imageView = UIImageView()
         imageView.addShadow(
             backgroundColor: .white,
-            shadowColor: .whisperColor,
-            shadowOffset: CGSize(width: 0, height: -1)
+            shadowColor: .gray,
+            shadowOffset: CGSize(width: 0, height: 1)
         )
         imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         if let viewModel = viewModel {
@@ -96,7 +97,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         return view
     }()
     
@@ -119,16 +120,16 @@ class PokemonDetailsView: UIView {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .pageTitleBold
-        label.textColor = .gray
+        label.font = .pageTitle
+        label.textColor = .white
         label.text = viewModel?.name
         return label
     }()
     
     private lazy var idLabel: UILabel = {
         let label = UILabel()
-        label.font = .itemTitleBold
-        label.textColor = .gray
+        label.font = .itemTitleSemibold
+        label.textColor = .white
         label.text = "#\(viewModel?.id ?? "00")"
         return label
     }()
@@ -176,7 +177,6 @@ class PokemonDetailsView: UIView {
 
     private lazy var weightValueLabel: UILabel = {
         let label = UILabel()
-        label.font = .pageSubtitleBold
         label.textColor = .white
         label.attributedText = setFontAttributeTo(
             textPrefix: "\(viewModel?.weight ?? "--")",
@@ -190,7 +190,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var heightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .subItemTitle
+        label.font = .subItemTitleSemibold
         label.textColor = .white
         label.text = "height"
         return label
@@ -198,7 +198,7 @@ class PokemonDetailsView: UIView {
     
     private lazy var weightTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .subItemTitle
+        label.font = .subItemTitleSemibold
         label.textColor = .white
         label.text = "weight"
         return label
@@ -213,21 +213,21 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var abilitiesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "abilities")
+        let label = makeRoundedPaddingLabel(withTitle: "abilities", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var statsLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "stats")
+        let label = makeRoundedPaddingLabel(withTitle: "stats", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(statsTapped))
         label.addGestureRecognizer(tapGesture)
         return label
     }()
     
     private lazy var gamesLabel: PaddingLabel = {
-        let label = makeRoundedPaddingLabel(withTitle: "games")
+        let label = makeRoundedPaddingLabel(withTitle: "games", font: .pageSubtitle)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gamesTapped))
         label.addGestureRecognizer(tapGesture)
         return label
@@ -244,7 +244,7 @@ class PokemonDetailsView: UIView {
     }()
     
     private lazy var activityIndicatorItem: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .gray)
+        let indicator = UIActivityIndicatorView(style: .white)
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
         return indicator
@@ -348,7 +348,7 @@ extension PokemonDetailsView: ViewCode {
     }
 
     func additionalConfigurations() {
-        backgroundColor = .white
+        backgroundColor = .black
         pokemonImageView.layer.cornerRadius = frame.height / 6
         setAddToFavoritesButton()
     }
@@ -365,12 +365,12 @@ private extension PokemonDetailsView {
         return prefix
     }
     
-    private func makeRoundedPaddingLabel(withTitle title: String) -> PaddingLabel {
+    private func makeRoundedPaddingLabel(withTitle title: String, font: UIFont? = .subItemTitleBold) -> PaddingLabel {
         let label = PaddingLabel(withInsets: 14, 14, 14, 14)
         label.layer.cornerRadius = 24
         label.layer.masksToBounds = true
         label.backgroundColor = viewModel?.gradientColors.first
-        label.font = .subItemTitleBold
+        label.font = font
         label.textColor = .white
         label.text = title
         label.isUserInteractionEnabled = true

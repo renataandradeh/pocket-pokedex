@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PokedexDisplayLogic: AnyObject {
+    func displayPokemonListError()
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel)
 }
 
@@ -22,17 +23,24 @@ class PokedexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor?.fetchPokemonList()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.interactor?.fetchPokemonList()
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.startLoading()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "",
-                                                           style: .plain,
-                                                           target: nil,
-                                                           action: nil
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
         )
+        navigationItem.backBarButtonItem?.tintColor = .white
     }
     
     func setup(
@@ -45,9 +53,20 @@ class PokedexViewController: UIViewController {
 }
 
 extension PokedexViewController: PokedexDisplayLogic {
+    func displayPokemonListError() {
+        DispatchQueue.main.async { [weak self] in
+            guard let pokedexView = self?.view as? PokedexView else { return }
+            pokedexView.update()
+            self?.stopLoading()
+        }
+    }
+    
     func displayPokemonList(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        guard let pokedexView = view as? PokedexView else { return }
-        pokedexView.update(viewModel: viewModel)
+        DispatchQueue.main.async { [weak self] in
+            guard let pokedexView = self?.view as? PokedexView else { return }
+            pokedexView.update(viewModel: viewModel)
+            self?.stopLoading()
+        }
     }
 }
 
@@ -58,12 +77,13 @@ extension PokedexViewController: PokedexViewDelegate {
     }
     
     func didScrollToTheEnd() {
-        interactor?.fetchPokemonList()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.interactor?.fetchPokemonList()
+        }
     }
     
     func didSelectPokemonAt(indexPath: IndexPath, withQuery query: String?) {
         interactor?.setCurrentPokemon(at: indexPath.row, withQuery: query)
         router?.routeToDetailsScreen()
     }
-    
 }

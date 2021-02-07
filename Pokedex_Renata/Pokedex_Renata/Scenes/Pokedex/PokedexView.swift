@@ -23,6 +23,8 @@ class PokedexView: UIView {
     private var filteredPokemons: [PokemonCell] = []
     private var isSearching: Bool = false
     
+    private var isFirstLoad: Bool = true
+    
     init(delegate: PokedexViewDelegate) {
         super.init(frame: .zero)
         self.delegate = delegate
@@ -36,11 +38,15 @@ class PokedexView: UIView {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(
+            PokedexTableViewCell.self,
+            forCellReuseIdentifier: "PokedexTableViewCell"
+        )
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PokedexTableViewCell.self, forCellReuseIdentifier: "PokedexTableViewCell")
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -57,12 +63,17 @@ class PokedexView: UIView {
         return searchBar
     }()
     
-    func update(viewModel: PokedexModels.FetchPokemonList.ViewModel) {
-        pokemons.append(contentsOf: viewModel.pokemonCells)
-        if !isSearching {
-            filteredPokemons.append(contentsOf: pokemons)
+    func update(viewModel: PokedexModels.FetchPokemonList.ViewModel? = nil) {
+        if let viewModel = viewModel {
+            pokemons.append(contentsOf: viewModel.pokemonCells)
+            if !isSearching {
+                filteredPokemons.append(contentsOf: pokemons)
+            }
         }
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+        isFirstLoad = false
     }
 }
 
@@ -88,9 +99,9 @@ extension PokedexView: ViewCode {
 extension PokedexView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let list = isSearching ? filteredPokemons : pokemons
-        if list.isEmpty {
-            tableView.setEmptyMessage()
-        } else {
+        if list.isEmpty && !isFirstLoad {
+            tableView.setEmptyState()
+        } else  {
             tableView.restore()
         }
         return list.count
@@ -106,7 +117,7 @@ extension PokedexView: UITableViewDataSource {
         cell.nameLabel.text = pokemon.name
         cell.pokemonImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         cell.pokemonImageView.sd_setImage(with: URL(string: pokemon.imageURL))
-        cell.roundedView.backgroundColor = pokemon.cellColor.lighter()
+        cell.roundedView.backgroundColor = pokemon.cellColor.darker()?.withAlphaComponent(0.75)
         cell.pokemonImageView.backgroundColor = pokemon.cellColor
         cell.nameLabel.backgroundColor = pokemon.cellColor
         return cell
@@ -127,10 +138,7 @@ extension PokedexView: UITableViewDelegate {
 //  MARK: - UIScrollViewDelegate
 extension PokedexView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let height = scrollView.frame.size.height
-        let contentYoffset = scrollView.contentOffset.y
-        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-        if distanceFromBottom <= (height + height * 0.3) {
+        if scrollView.contentOffset.y >= 75.0 {
             delegate?.didScrollToTheEnd()
         }
     }
@@ -141,13 +149,19 @@ extension PokedexView: UISearchBarDelegate {
         guard !searchText.isEmpty  else {
             isSearching = false
             filteredPokemons = pokemons
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
             return
         }
+        
         isSearching = true
         filteredPokemons = pokemons.filter({ pokemon -> Bool in
             return pokemon.name.lowercased().contains(searchText.lowercased())
         })
-        tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

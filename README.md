@@ -19,7 +19,7 @@ It's a Pokedex-style iOS app with informations provided by [PokéApi](https://po
 
 ## Screenshots
 
-<img src="/screenshots/list.png" width="245" height="500">   <img src="/screenshots/details.png" width="245" height="500"> 
+<img src="/screenshots/list.png" width="300" height="500">   <img src="/screenshots/goldeen-details.png" width="300" height="500">   <img src="/screenshots/arcanine-details.png" width="300" height="500">
 
 ## Notes
 

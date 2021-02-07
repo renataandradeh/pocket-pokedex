@@ -38,9 +38,12 @@ class PokedexView: UIView {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(
+            PokedexTableViewCell.self,
+            forCellReuseIdentifier: "PokedexTableViewCell"
+        )
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PokedexTableViewCell.self, forCellReuseIdentifier: "PokedexTableViewCell")
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag

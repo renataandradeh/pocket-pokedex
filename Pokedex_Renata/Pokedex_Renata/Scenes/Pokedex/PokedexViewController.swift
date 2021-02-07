@@ -41,6 +41,7 @@ class PokedexViewController: UIViewController {
             target: nil,
             action: nil
         )
+        navigationItem.backBarButtonItem?.tintColor = .white
     }
     
     func setup(

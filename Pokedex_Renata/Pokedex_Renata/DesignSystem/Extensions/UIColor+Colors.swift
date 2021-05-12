@@ -53,7 +53,6 @@ extension UIColor {
                 }
             }
         }
-        
         return nil
     }
 }
